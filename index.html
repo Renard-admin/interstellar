@@ -1,0 +1,2000 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Интерстеллар - Путешествие сквозь время и пространство</title>
+    <!-- Подключение Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Подключение Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;700&family=Rajdhani:wght@300;400;500;600;700&family=Share+Tech+Mono&display=swap" rel="stylesheet">
+    <!-- Подключение Font Awesome для иконок -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Общие стили для всего сайта */
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background-color: #0a0a0a; /* Очень темный фон */
+            color: #e0e0e0; /* Светлый текст */
+            overflow-x: hidden; /* Предотвращаем горизонтальную прокрутку */
+            scroll-behavior: smooth; /* Плавная прокрутка */
+        }
+
+        /* Пользовательский скроллбар */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a1a;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #3b82f6; /* Синий акцент */
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #60a5fa;
+        }
+
+        /* Стили для навигации */
+        .navbar {
+            background-color: rgba(10, 10, 10, 0.9); /* Полупрозрачный фон для навигации */
+            backdrop-filter: blur(8px); /* Эффект размытия */
+            border-bottom: 1px solid rgba(59, 130, 246, 0.3); /* Тонкая синяя граница */
+            z-index: 1000;
+        }
+
+        .nav-link {
+            font-family: 'Orbitron', sans-serif;
+            color: #e0e0e0;
+            transition: color 0.3s ease, text-shadow 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0.8rem; /* Уменьшен padding для компактности */
+            display: inline-block; /* Для корректного позиционирования ::after */
+            white-space: nowrap; /* Предотвращает перенос текста */
+        }
+
+        .nav-link:hover {
+            color: #3b82f6; /* Синий при наведении */
+            text-shadow: 0 0 10px #3b82f6, 0 0 20px #3b82f6; /* Эффект неона */
+        }
+
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #3b82f6;
+            left: 50%;
+            bottom: -5px; /* Немного ниже текста */
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        .nav-link:hover::after {
+            width: 100%;
+        }
+
+        /* Заголовки секций */
+        .section-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 3.5rem; /* Увеличенный размер */
+            color: #e0e0e0;
+            text-shadow: 0 0 15px #3b82f6, 0 0 30px #3b82f6; /* Синий неон */
+            margin-bottom: 3rem; /* Отступ от рамок */
+            letter-spacing: 0.1em;
+            text-align: center;
+        }
+
+        /* Стили для кнопок */
+        .btn-primary {
+            background: linear-gradient(45deg, #3b82f6, #60a5fa);
+            color: white;
+            padding: 1rem 2.5rem;
+            border-radius: 9999px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.5);
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.8);
+            background: linear-gradient(45deg, #60a5fa, #3b82f6);
+        }
+
+        /* Геройская секция */
+        .hero-section {
+            height: 100vh;
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-overlay {
+            background: linear-gradient(to right, rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.4));
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 1;
+        }
+
+        .hero-content {
+            z-index: 2;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            max-width: 1200px;
+            width: 100%;
+        }
+
+        .hero-text-container {
+            flex: 1;
+            padding-right: 4rem; /* Увеличиваем отступ справа */
+            text-align: left; /* Выравниваем текст по левому краю */
+            margin-left: 5%; /* Дополнительный отступ от левого края */
+        }
+
+        .hero-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 5rem;
+            color: #e0e0e0;
+            text-shadow: 0 0 20px #3b82f6, 0 0 40px #3b82f6;
+            margin-bottom: 1rem;
+            animation: fadeIn 2s ease-out;
+        }
+
+        .hero-description {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 1.5rem;
+            line-height: 1.6;
+            color: #c0c0c0;
+            margin-bottom: 2.5rem;
+            animation: fadeIn 2.5s ease-out;
+        }
+
+        .hero-poster {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            animation: fadeIn 3s ease-out;
+        }
+
+        .hero-poster img {
+            max-width: 80%;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+            transition: transform 0.3s ease;
+        }
+
+        .hero-poster img:hover {
+            transform: scale(1.02);
+        }
+
+        /* Анимация появления */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Секция "Создатели и Актеры" */
+        .crew-cast-section {
+            padding: 6rem 2rem;
+            background-color: #121212;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .crew-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            justify-items: center; /* Центрирует элементы в ячейках */
+            align-items: start;
+            margin-top: 4rem;
+        }
+
+        .crew-member {
+            text-align: center;
+            transition: transform 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            display: flex; /* Используем flexbox для центрирования содержимого */
+            flex-direction: column;
+            align-items: center; /* Центрирует по горизонтали */
+        }
+
+        .crew-member:hover {
+            transform: translateY(-10px);
+        }
+
+        .crew-member img {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 3px solid #3b82f6;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.4);
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .crew-member:hover img {
+            border-color: #f97316; /* Оранжевый при наведении */
+            box-shadow: 0 0 25px rgba(249, 115, 22, 0.6);
+        }
+
+        .crew-member-name {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.2rem;
+            margin-top: 0.8rem;
+            color: #e0e0e0;
+        }
+
+        .crew-member-role {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        /* Линии для "лесенки" */
+        .crew-line {
+            position: absolute;
+            background-color: rgba(59, 130, 246, 0.5);
+            z-index: 0;
+        }
+
+        /* Секция "Таймер Времени" */
+        .timer-section {
+            padding: 6rem 2rem;
+            background-color: #0a0a0a;
+            text-align: center;
+        }
+
+        .timer-container {
+            display: flex;
+            flex-direction: column;
+            gap: 3rem;
+            margin-top: 4rem;
+            align-items: center;
+        }
+
+        .timer-box {
+            background-color: #1c1c1c;
+            border-radius: 15px;
+            padding: 2.5rem;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+        }
+
+        .timer-box::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at center, rgba(59, 130, 246, 0.1) 0%, transparent 70%);
+            animation: rotateBackground 20s linear infinite;
+            z-index: 0;
+        }
+
+        @keyframes rotateBackground {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .timer-label {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: #f97316; /* Оранжевый акцент */
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px #f97316;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timer-display {
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 2.5rem; /* Увеличенный размер */
+            color: #e0e0e0;
+            text-shadow: 0 0 15px #3b82f6;
+            letter-spacing: 0.05em;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timer-explanation {
+            font-size: 1.1rem;
+            color: #a0a0a0;
+            margin-top: 2rem;
+            line-height: 1.5;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Секция "Чат с Героями" */
+        .chat-section {
+            padding: 6rem 2rem;
+            background-color: #121212;
+            text-align: center;
+        }
+
+        .chat-container {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+            margin-top: 4rem;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #1c1c1c;
+            border-radius: 15px;
+            box-shadow: 0 0 25px rgba(59, 130, 246, 0.4);
+            padding: 2.5rem;
+            border: 1px solid rgba(59, 130, 246, 0.5);
+        }
+
+        .character-selection {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .character-button {
+            background-color: #2a2a2a;
+            color: #e0e0e0;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            border: 1px solid #3b82f6;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 8px rgba(59, 130, 246, 0.3);
+        }
+
+        .character-button:hover, .character-button.active {
+            background-color: #3b82f6; /* Космический синий */
+            color: white;
+            box-shadow: 0 0 15px #3b82f6, 0 0 25px #3b82f6;
+            transform: translateY(-2px);
+        }
+
+        .chat-messages {
+            height: 400px;
+            overflow-y: auto;
+            background-color: #0a0a0a;
+            border-radius: 10px;
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            border: 1px solid rgba(249, 115, 22, 0.3); /* Оранжевая рамка */
+        }
+
+        .chat-message {
+            max-width: 80%;
+            padding: 0.8rem 1.2rem;
+            border-radius: 15px;
+            font-size: 1rem;
+            line-height: 1.4;
+        }
+
+        .user-message {
+            background-color: #3b82f6; /* Синий для пользователя */
+            color: white;
+            align-self: flex-end;
+            border-bottom-right-radius: 5px;
+        }
+
+        .ai-message {
+            background-color: #f97316; /* Оранжевый для AI */
+            color: white;
+            align-self: flex-start;
+            border-bottom-left-radius: 5px;
+        }
+
+        .chat-input-container {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .chat-input {
+            flex-grow: 1;
+            padding: 0.8rem 1.2rem;
+            border-radius: 10px;
+            border: 1px solid #3b82f6;
+            background-color: #0a0a0a;
+            color: #e0e0e0;
+            font-size: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+        }
+
+        .chat-input:focus {
+            outline: none;
+            border-color: #f97316;
+            box-shadow: 0 0 10px rgba(249, 115, 22, 0.5);
+        }
+
+        .chat-send-button {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border-radius: 10px;
+            border: none;
+            cursor: pointer;
+            font-family: 'Orbitron', sans-serif;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .chat-send-button:hover {
+            background-color: #60a5fa;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+        }
+
+        .loading-indicator {
+            font-size: 0.9rem;
+            color: #a0a0a0;
+            margin-top: 0.5rem;
+            text-align: left;
+            padding-left: 1.5rem;
+        }
+
+        /* Секция "Секреты, Факты и Цитаты" */
+        .facts-quotes-section {
+            padding: 6rem 2rem;
+            background-color: #0a0a0a;
+            text-align: center;
+        }
+
+        .accordion-container {
+            margin-top: 4rem;
+            max-width: 1000px;
+            margin-left: auto;
+            margin-right: auto;
+            text-align: left;
+        }
+
+        .accordion-item {
+            background-color: #1c1c1c;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+        }
+
+        .accordion-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.5rem 2rem;
+            cursor: pointer;
+            background-color: #2a2a2a;
+            border-bottom: 1px solid rgba(59, 130, 246, 0.2);
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: #e0e0e0;
+            transition: background-color 0.3s ease;
+        }
+
+        .accordion-header:hover {
+            background-color: #3b82f6;
+            color: white;
+            text-shadow: 0 0 8px white;
+        }
+
+        .accordion-header i {
+            margin-right: 10px; /* Отступ для иконки */
+            color: #f97316; /* Оранжевый цвет для иконок */
+        }
+
+        .accordion-header .icon {
+            transition: transform 0.3s ease;
+            font-size: 1.2rem;
+            color: #3b82f6;
+        }
+
+        .accordion-header.active .icon {
+            transform: rotate(90deg);
+        }
+
+        .accordion-content {
+            padding: 1.5rem 2rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease-out;
+            color: #c0c0c0;
+            line-height: 1.6;
+        }
+
+        .accordion-content h4 {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.5rem;
+            color: #3b82f6;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 5px #3b82f6;
+        }
+
+        .accordion-content ul {
+            list-style: none; /* Убираем стандартные маркеры списка */
+            padding-left: 0;
+        }
+
+        .accordion-content li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-left: 1.5rem; /* Отступ для кастомного маркера */
+        }
+
+        .accordion-content li::before {
+            content: '•'; /* Кастомный маркер */
+            color: #f97316; /* Оранжевый цвет маркера */
+            position: absolute;
+            left: 0;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .accordion-content strong {
+            color: #f97316;
+        }
+
+        .timecode, .timestamp {
+            font-family: 'Share Tech Mono', monospace;
+            color: #3b82f6;
+            font-weight: bold;
+        }
+
+        /* Секция "Наука за кадром" */
+        .science-section {
+            padding: 6rem 2rem;
+            background-color: #121212;
+            text-align: center;
+        }
+
+        .science-grid {
+            margin-top: 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .science-card {
+            background-color: #1c1c1c;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 0 20px rgba(249, 115, 22, 0.2);
+            border: 1px solid rgba(249, 115, 22, 0.3);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .science-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at top right, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+            z-index: 0;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .science-card:hover::before {
+            opacity: 1;
+        }
+
+        .science-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.4);
+        }
+
+        .science-card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.8rem;
+            color: #f97316;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px #f97316;
+            position: relative;
+            z-index: 1;
+        }
+
+        .science-card-content {
+            font-size: 1.1rem;
+            color: #c0c0c0;
+            line-height: 1.6;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Секция "Видео Просмотрщик" */
+        .video-player-section {
+            padding: 6rem 2rem;
+            background-color: #0a0a0a;
+            text-align: center;
+        }
+
+        .video-container {
+            margin-top: 4rem;
+            position: relative;
+            padding-bottom: 56.25%; /* 16:9 Aspect Ratio */
+            height: 0;
+            overflow: hidden;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #000;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.6);
+        }
+
+        .video-container video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+        }
+
+        .popup-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.8);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+        }
+
+        .popup-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .popup-content {
+            background-color: #1c1c1c;
+            border-radius: 15px;
+            padding: 2.5rem;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 0 30px rgba(249, 115, 22, 0.8);
+            border: 1px solid #f97316;
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+
+        .popup-overlay.active .popup-content {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        .popup-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 2rem;
+            color: #f97316;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 0 10px #f97316;
+        }
+
+        .popup-text {
+            font-size: 1.2rem;
+            color: #e0e0e0;
+            line-height: 1.5;
+            margin-bottom: 2rem;
+        }
+
+        .popup-close-btn {
+            background-color: #3b82f6;
+            color: white;
+            padding: 0.8rem 2rem;
+            border-radius: 9999px;
+            font-family: 'Orbitron', sans-serif;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .popup-close-btn:hover {
+            background-color: #60a5fa;
+            box-shadow: 0 0 15px rgba(59, 130, 246, 0.6);
+        }
+
+        /* Секция "Интервью и Дополнительные Материалы" */
+        .interviews-section {
+            padding: 6rem 2rem;
+            background-color: #121212;
+            text-align: center;
+        }
+
+        .interview-grid {
+            margin-top: 4rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2.5rem;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .interview-card {
+            background-color: #1c1c1c;
+            border-radius: 15px;
+            padding: 1.5rem;
+            box-shadow: 0 0 20px rgba(59, 130, 246, 0.2);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            text-align: left;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .interview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 0 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .interview-card iframe {
+            width: 100%;
+            height: 200px;
+            border-radius: 10px;
+            margin-bottom: 1rem;
+        }
+
+        .interview-card-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.3rem;
+            color: #e0e0e0;
+            margin-bottom: 0.5rem;
+        }
+
+        .interview-card-description {
+            font-size: 0.95rem;
+            color: #a0a0a0;
+            line-height: 1.4;
+        }
+
+        /* Адаптивный дизайн */
+        @media (max-width: 1024px) {
+            .hero-content {
+                flex-direction: column;
+                text-align: center;
+            }
+
+            .hero-text-container {
+                padding-right: 0;
+                margin-bottom: 2rem;
+                margin-left: 0; /* Убираем дополнительный отступ на маленьких экранах */
+            }
+
+            .hero-poster img {
+                max-width: 60%;
+            }
+
+            .section-title {
+                font-size: 2.8rem;
+            }
+
+            .timer-display {
+                font-size: 2rem;
+            }
+
+            .chat-container {
+                padding: 1.5rem;
+            }
+
+            .nav-menu {
+                flex-wrap: wrap; /* Разрешаем перенос элементов на новую строку */
+                justify-content: center; /* Центрируем элементы при переносе */
+                gap: 0.5rem; /* Уменьшаем зазор между элементами */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-link {
+                padding: 0.5rem 0.6rem; /* Еще уменьшаем padding */
+                font-size: 0.85rem; /* Уменьшаем размер шрифта */
+            }
+
+            .hero-title {
+                font-size: 3.5rem;
+            }
+
+            .hero-description {
+                font-size: 1.2rem;
+            }
+
+            .section-title {
+                font-size: 2.2rem;
+            }
+
+            .timer-label {
+                font-size: 1.5rem;
+            }
+
+            .timer-display {
+                font-size: 1.8rem;
+            }
+
+            .timer-explanation {
+                font-size: 1rem;
+            }
+
+            .character-button {
+                padding: 0.6rem 1rem;
+                font-size: 0.9rem;
+            }
+
+            .chat-messages {
+                height: 300px;
+            }
+
+            .chat-message {
+                font-size: 0.9rem;
+            }
+
+            .accordion-header {
+                font-size: 1.1rem;
+                padding: 1rem 1.5rem;
+            }
+
+            .accordion-content {
+                font-size: 1rem;
+                padding: 1rem 1.5rem;
+            }
+
+            .science-card-title {
+                font-size: 1.5rem;
+            }
+
+            .science-card-content {
+                font-size: 1rem;
+            }
+
+            .popup-title {
+                font-size: 1.5rem;
+            }
+
+            .popup-text {
+                font-size: 1rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-menu {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .nav-link {
+                font-size: 0.75rem; /* Еще уменьшаем размер шрифта */
+                padding: 0.4rem 0.5rem;
+            }
+
+            .hero-title {
+                font-size: 2.5rem;
+            }
+
+            .hero-description {
+                font-size: 1rem;
+            }
+
+            .btn-primary {
+                padding: 0.8rem 1.8rem;
+                font-size: 0.9rem;
+            }
+
+            .section-title {
+                font-size: 1.8rem;
+            }
+
+            .timer-box {
+                padding: 1.5rem;
+            }
+
+            .timer-label {
+                font-size: 1.2rem;
+            }
+
+            .timer-display {
+                font-size: 1.5rem;
+            }
+
+            .crew-member img {
+                width: 100px;
+                height: 100px;
+            }
+
+            .crew-member-name {
+                font-size: 1rem;
+            }
+
+            .chat-input-container {
+                flex-direction: column;
+            }
+
+            .chat-send-button {
+                width: 100%;
+            }
+
+            .popup-content {
+                padding: 1.5rem;
+            }
+        }
+
+        /* Звездный фон (что-то свое) */
+        .star-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background-color: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: twinkle 5s infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0; }
+            50% { opacity: 1; }
+        }
+
+        /* Дополнительные стили для анимаций при прокрутке */
+        .animate-on-scroll {
+            opacity: 0;
+            transform: translateY(50px);
+            transition: opacity 1s ease-out, transform 1s ease-out;
+        }
+
+        .animate-on-scroll.in-view {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
+</head>
+<body class="relative">
+    <!-- Звездный фон для всей страницы -->
+    <div class="star-background"></div>
+
+    <!-- Навигационное меню -->
+    <nav class="navbar fixed top-0 left-0 w-full py-4 px-8 flex justify-between items-center">
+        <div class="text-3xl font-bold text-white tracking-wider" style="font-family: 'Orbitron', sans-serif; text-shadow: 0 0 10px #f97316, 0 0 20px #f97316;">
+            ИНТЕРСТЕЛЛАР
+        </div>
+        <ul class="flex space-x-4 nav-menu"> <!-- Уменьшен space-x-6 до space-x-4 -->
+            <li><a href="#hero" class="nav-link">Главная</a></li>
+            <li><a href="#crew-cast" class="nav-link">Создатели</a></li>
+            <li><a href="#timer" class="nav-link">Таймер Времени</a></li>
+            <li><a href="#chat" class="nav-link">Чат с Героями</a></li>
+            <li><a href="#facts-quotes" class="nav-link">Секреты и Факты</a></li>
+            <li><a href="#science" class="nav-link">Наука за кадром</a></li>
+            <li><a href="#video-player" class="nav-link">Просмотр фильма</a></li>
+            <li><a href="#interviews" class="nav-link">Интервью</a></li> <!-- Сокращено название -->
+        </ul>
+    </nav>
+
+    <!-- Главная секция (Hero Section) -->
+    <section id="hero" class="hero-section" style="background-image: url('data:image/jpeg;base64,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');">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <div class="hero-text-container">
+                <h1 class="hero-title">ИНТЕРСТЕЛЛАР</h1>
+                <p class="hero-description">
+                    В условиях умирающей Земли, команда исследователей отправляется в самое смелое путешествие в истории человечества, чтобы найти новый дом среди звезд. Фильм "Интерстеллар" — это эпическая одиссея о любви, времени, выживании и безграничных возможностях человеческого духа.
+                </p>
+                <a href="#video-player" class="btn-primary">Смотреть фильм</a>
+            </div>
+            <div class="hero-poster">
+                <img src="data:image/jpeg;base64,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" alt="Постер фильма Интерстеллар">
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Создатели и Актеры" -->
+    <section id="crew-cast" class="crew-cast-section animate-on-scroll">
+        <h2 class="section-title">Создатели и Актеры</h2>
+        <div class="crew-grid">
+            <!-- Кристофер Нолан -->
+            <a href="https://www.kinopoisk.ru/name/41477/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/10900341/c16e1382-d91d-4cfc-b179-ce8757a41b10/280x420" alt="Кристофер Нолан">
+                <div class="crew-member-name">Кристофер Нолан</div>
+                <div class="crew-member-role">Режиссер, Сценарист, Продюсер</div>
+            </a>
+
+            <!-- Актеры -->
+            <a href="https://www.kinopoisk.ru/name/797/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/7b37ed50-2bb0-4f22-adba-d94023ed9a38/280x420" alt="Мэттью МакКонахи">
+                <div class="crew-member-name">Мэттью МакКонахи</div>
+                <div class="crew-member-role">Купер</div>
+            </a>
+            <a href="https://www.kinopoisk.ru/name/38703/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/10893610/9750ea26-da2a-4bac-94f5-9d59ad29742f/280x420" alt="Энн Хэтэуэй">
+                <div class="crew-member-name">Энн Хэтэуэй</div>
+                <div class="crew-member-role">Амелия Брэнд</div>
+            </a>
+            <a href="https://www.kinopoisk.ru/name/1111242/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1704946/35e92331-afe5-42cd-8df5-eeeab87c647a/280x420" alt="Джессика Честейн">
+                <div class="crew-member-name">Джессика Честейн</div>
+                <div class="crew-member-role">Мёрф</div>
+            </a>
+            <a href="https://www.kinopoisk.ru/name/3711/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/10703859/04543c9c-9d48-46a4-8f61-86bd2aeeb983/280x420" alt="Майкл Кейн">
+                <div class="crew-member-name">Майкл Кейн</div>
+                <div class="crew-member-role">Профессор Брэнд</div>
+            </a>
+            <a href="https://www.kinopoisk.ru/name/6458/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1777765/1638c058-eec7-4d7c-acc9-2d2fe510fe62/280x420" alt="Мэтт Дэймон">
+                <div class="crew-member-name">Мэтт Дэймон</div>
+                <div class="crew-member-role">Доктор Манн</div>
+            </a>
+            <a href="https://www.kinopoisk.ru/name/2007922/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/10671298/202cba90-4f3a-44eb-aa15-961b4b5cf9f0/280x420" alt="Маккензи Фой">
+                <div class="crew-member-name">Маккензи Фой</div>
+                <div class="crew-member-role">Мёрф (в детстве)</div>
+            </a>
+            <a href="https://www.kinopoisk.ru/name/1665224/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/0ae93f05-a7c4-4a15-8389-f869a8f5e1ed/280x420" alt="Тимоти Шаламе">
+                <div class="crew-member-name">Тимоти Шаламе</div>
+                <div class="crew-member-role">Том (в юности)</div>
+            </a>
+
+            <!-- Члены съемочной группы -->
+            <a href="https://www.kinopoisk.ru/name/758887/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/f0eb86cd-4eb6-4985-95ab-0a02798c5dc7/280x420" alt="Хойт Ван Хойтема">
+                <div class="crew-member-name">Хойт Ван Хойтема</div>
+                <div class="crew-member-role">Оператор</div>
+            </a>
+            <a href="https://www.kinopoisk.ru/name/1642584/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/e2b4da28-398a-48b8-91af-b42174e7cdc5/280x420" alt="Ханс Циммер">
+                <div class="crew-member-name">Ханс Циммер</div>
+                <div class="crew-member-role">Композитор</div>
+            </a>
+            <a href="https://www.kinopoisk.ru/name/50590/" target="_blank" class="crew-member">
+                <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/8d98540c-ba9d-4260-81db-9c0568d30d51/280x420" alt="Натан Кроули">
+                <div class="crew-member-name">Натан Кроули</div>
+                <div class="crew-member-role">Художник-постановщик</div>
+            </a>
+            <a href="https://en.wikipedia.org/wiki/Paul_Franklin_(visual_effects_supervisor)" target="_blank" class="crew-member">
+                <img src="https://encrypted-tbn2.gstatic.com/images?q=tbn:ANd9GcT24i86LNGYn4rI2nEY-RItOQj2x_jL_mMrUOJF5oR1kJcjCkXGGstX6oSpeOOx6a7C9mQD7PkwvyuYLvVrrK52e-x1BWyB2_S9JDgs2YVH" alt="Пол Франклин">
+                <div class="crew-member-name">Пол Франклин</div>
+                <div class="crew-member-role">Специалист по визуальным эффектам</div>
+            </a>
+        </div>
+    </section>
+
+    <!-- Секция "Таймер Времени" -->
+    <section id="timer" class="timer-section animate-on-scroll">
+        <h2 class="section-title">Таймер Времени</h2>
+        <div class="timer-container">
+            <div class="timer-box">
+                <div class="timer-label">Земное Время с выхода фильма</div>
+                <div id="earth-time" class="timer-display"></div>
+            </div>
+            <div class="timer-box">
+                <div class="timer-label">Время на Планете Миллер</div>
+                <div id="miller-time" class="timer-display"></div>
+            </div>
+        </div>
+        <p class="timer-explanation">
+            Феномен гравитационной дилатации времени является ключевым элементом сюжета "Интерстеллара". Согласно теории относительности Эйнштейна, время течет по-разному для наблюдателей в разных гравитационных полях. Чем сильнее гравитация, тем медленнее течет время. На планете Миллер, расположенной очень близко к сверхмассивной черной дыре Гаргантюа, гравитация настолько сильна, что каждый час, проведенный на ее поверхности, соответствует примерно семи земным годам. Это означает, что для тех, кто остался на Земле, время проходит намного быстрее, чем для Купера и его команды на планете Миллер.
+        </p>
+    </section>
+
+    <!-- Секция "Чат с Героями" -->
+    <section id="chat" class="chat-section animate-on-scroll">
+        <h2 class="section-title">Чат с Героями</h2>
+        <div class="chat-container">
+            <div class="character-selection">
+                <button class="character-button active" data-character="Купер">Купер</button>
+                <button class="character-button" data-character="Мёрф">Мёрф</button>
+                <button class="character-button" data-character="Амелия Брэнд">Амелия Брэнд</button>
+                <button class="character-button" data-character="Профессор Брэнд">Профессор Брэнд</button>
+                <button class="character-button" data-character="ТАРС">ТАРС</button>
+                <button class="character-button" data-character="КЕЙС">КЕЙС</button>
+            </div>
+            <div id="chat-messages" class="chat-messages">
+                <!-- Сообщения чата будут здесь -->
+                <!-- Начальное сообщение НЕ будет добавлено JS при инициализации, чат будет пуст. -->
+            </div>
+            <div class="chat-input-container">
+                <input type="text" id="chat-input" class="chat-input" placeholder="Задай вопрос выбранному персонажу...">
+                <button id="chat-send-button" class="chat-send-button">Отправить</button>
+            </div>
+            <div id="chat-loading" class="loading-indicator hidden">Печатает...</div>
+        </div>
+    </section>
+
+    <!-- Секция "Секреты, Факты и Цитаты" -->
+    <section id="facts-quotes" class="facts-quotes-section animate-on-scroll">
+        <h2 class="section-title">Секреты, Факты и Цитаты</h2>
+        <div class="accordion-container">
+            <!-- Секреты и Отсылки -->
+            <div class="accordion-item">
+                <div class="accordion-header" data-target="secrets-content">
+                    <h3><i class="fas fa-eye"></i> Секреты и Отсылки</h3>
+                    <span class="icon">&#9654;</span>
+                </div>
+                <div id="secrets-content" class="accordion-content">
+                    <h4>Скрытые детали и пасхалки фильма</h4>
+                    <ul>
+                        <li><strong>"Время течет по-разному"</strong>: В сцене на планете Миллер, когда Купер возвращается на корабль, он видит, как Ромилли постарел на 23 года, хотя для Купера прошло всего несколько часов. Это наглядная демонстрация гравитационной дилатации времени. <span class="timestamp">[01:10:00]</span></li>
+                        <li><strong>Пятая мерность и книжная полка</strong>: Книжная полка Мёрф в детстве была не просто полкой, а способом связи из пятимерного пространства. Книги, падающие с полки, были "сообщениями" от Купера, передающими бинарный код. <span class="timestamp">[02:20:00]</span></li>
+                        <li><strong>Послание через пыль</strong>: Гравитационные аномалии, которые Мёрф обнаруживает в своей комнате (падающая пыль, образующая бинарный код), были попытками Купера в пятимерном пространстве передать ей данные о квантовой гравитации с помощью азбуки Морзе, используя пыль. <span class="timestamp">[00:15:00]</span></li>
+                        <li><strong>Имена роботов ТАРС и КЕЙС</strong>: Имена роботов ТАРС (TARS) и КЕЙС (CASE) являются отсылками к научно-фантастическому фильму "2001: Космическая одиссея" Стэнли Кубрика, где также был искусственный интеллект HAL 9000, и, возможно, к аббревиатурам "Tactical Assault Robot System" и "Computer Aided Support Equipment".</li>
+                        <li><strong>Реальные черные дыры</strong>: Визуализация черной дыры Гаргантюа была создана на основе реальных научных расчетов Кипа Торна, физика-теоретика, что сделало ее одной из самых точных в кино. Это было достигнуто с помощью нового рендерингового программного обеспечения.</li>
+                        <li><strong>"Не уходи тихо в эту добрую ночь"</strong>: Стихотворение Дилана Томаса, которое читает Профессор Брэнд, является ключевым мотивом фильма, подчеркивающим борьбу человечества против неминуемого конца.</li>
+                        <li><strong>Имя дочери Купера - Мёрф</strong>: Это сокращение от "Мерфи" (Murphy), что отсылает к Закону Мерфи: "Если что-то может пойти не так, оно пойдет не так". Это отражает множество неудач и трудностей, с которыми сталкиваются герои, но также и то, что "все, что может пойти не так, может быть исправлено".</li>
+                        <li><strong>Кротовая нора как сфера</strong>: В фильме кротовая нора показана как сфера, а не как туннель, что является более научно точным представлением согласно теории относительности и визуализациям Кипа Торна.</li>
+                        <li><strong>"Они не выбирали нас"</strong>: Фраза Купера о том, что "они" (существа из пятимерного пространства) не выбирали их, а просто помогали, подчеркивает идею того, что человечество должно спасти себя само, используя любовь как ключ к пониманию высших измерений.</li>
+                        <li><strong>Часы Купера и Мёрф</strong>: Часы, которые Купер дарит Мёрф, становятся ключевым элементом для передачи данных о квантовой гравитации из пятимерного пространства, позволяя Мёрф решить уравнение и спасти человечество. <span class="timestamp">[02:30:00]</span></li>
+                        <li><strong>Послание через гравитацию</strong>: Купер использует гравитацию как средство связи из тессеракта, чтобы передать Мёрф данные, которые невозможно было передать другим способом. Это подчеркивает идею, что гравитация может быть ключом к пониманию Вселенной.</li>
+                        <li><strong>"Призрак" Мёрф</strong>: В детстве Мёрф верила, что в ее комнате живет "призрак", который перемещает книги. На самом деле, это был Купер из будущего, пытающийся общаться с ней через гравитационные аномалии.</li>
+                        <li><strong>"Любовь — это сила"</strong>: Фильм неоднократно подчеркивает, что любовь является не просто эмоцией, а фундаментальной физической силой, способной преодолевать пространство и время.</li>
+                        <li><strong>"Невидимые силы"</strong>: В начале фильма Купер говорит о том, что люди перестали верить в невидимые силы, которые управляют миром. Это предвещает его собственное путешествие в измерения, где эти силы становятся осязаемыми.</li>
+                        <li><strong>"Блайт"</strong>: Название первой планеты, которую они исследуют, "Блайт" (Blight), означает "засуха" или "бедствие", символизируя ее непригодность для жизни.</li>
+                        <li><strong>"Манн"</strong>: Имя доктора Манна, который предает команду, созвучно с "man" (человек), что может быть отсылкой к человеческой природе и ее темным сторонам.</li>
+                        <li><strong>"Эндюранс"</strong>: Название космического корабля "Эндюранс" (Endurance) означает "выносливость" или "стойкость", что идеально отражает миссию и испытания, с которыми сталкиваются герои.</li>
+                        <li><strong>"Лазарь"</strong>: Название миссии "Лазарь" отсылает к библейскому персонажу Лазарю, которого Иисус воскресил из мертвых, символизируя возрождение человечества.</li>
+                        <li><strong>"Доктор Брэнд и его ложь"</strong>: Профессор Брэнд сознательно обманывал команду о существовании Плана Б, чтобы обеспечить выполнение миссии, что поднимает этические вопросы о жертвах ради выживания вида.</li>
+                        <li><strong>"ТАРС и его юмор"</strong>: Настраиваемый уровень юмора ТАРСа (до 90%) является уникальной чертой, которая добавляет легкости в напряженные моменты фильма.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Факты о фильме и науке -->
+            <div class="accordion-item">
+                <div class="accordion-header" data-target="facts-content">
+                    <h3><i class="fas fa-lightbulb"></i> Факты о фильме и науке</h3>
+                    <span class="icon">&#9654;</span>
+                </div>
+                <div id="facts-content" class="accordion-content">
+                    <h4>Создание "Интерстеллара": За кулисами</h4>
+                    <ul>
+                        <li><strong>1. Научные консультации:</strong> Кип Торн, лауреат Нобелевской премии по физике, был исполнительным продюсером и научным консультантом фильма, обеспечивая беспрецедентную научную достоверность.</li>
+                        <li><strong>2. Практические эффекты:</strong> Нолан известен своей любовью к практическим эффектам. Многие космические сцены, включая эффекты невесомости и пейзажи планет, были сняты с использованием миниатюр, практических эффектов и проекций, а не только CGI, что придало им невероятный реализм.</li>
+                        <li><strong>3. Бюджет и сборы:</strong> Бюджет фильма составил около $165 миллионов, а мировые кассовые сборы превысили $700 миллионов, что сделало его коммерчески успешным.</li>
+                        <li><strong>4. Награды:</strong> "Интерстеллар" получил премию "Оскар" за лучшие визуальные эффекты, а также множество других наград и номинаций за режиссуру, сценарий, музыку и актерскую игру.</li>
+                        <li><strong>5. Кукурузная ферма:</strong> Сцены на ферме Купера снимались на реальной кукурузной ферме в Канаде. Для этого было выращено огромное поле кукурузы, которое после съемок было продано, компенсировав часть затрат.</li>
+                        <li><strong>6. Робот ТАРС:</strong> Робот ТАРС был не полностью CGI; его управлял кукловод Билл Ирвин, который также озвучивал робота. Это позволило актерам взаимодействовать с реальным объектом на съемочной площадке.</li>
+                        <li><strong>7. Саундтрек Ханса Циммера:</strong> Ханс Циммер написал саундтрек, основываясь только на одной странице текста от Нолана, описывающей центральные темы фильма, прежде чем увидеть полный сценарий.</li>
+                        <li><strong>8. Влияние "2001: Космическая одиссея":</strong> Фильм сильно вдохновлен "2001: Космической одиссеей" Стэнли Кубрика, что проявляется в минималистичном дизайне кораблей, реалистичном изображении космоса и роли искусственного интеллекта.</li>
+                        <li><strong>9. Черная дыра Гаргантюа:</strong> Визуализация Гаргантюа является одной из самых научно точных в истории кино, основанной на уравнениях общей теории относительности и сложных компьютерных моделях, разработанных Кипом Торном и командой VFX.</li>
+                        <li><strong>10. Использование IMAX камер:</strong> Многие ключевые сцены фильма были сняты на широкоформатные камеры IMAX, что обеспечило потрясающее качество изображения и погружение зрителя.</li>
+                        <li><strong>11. Отсутствие звука в космосе:</strong> В фильме строго соблюдается физический принцип отсутствия звука в вакууме космоса. Взрывы и другие события в космосе показаны бесшумно, что усиливает ощущение изоляции и реализма.</li>
+                        <li><strong>12. Теория струн:</strong> Концепция пятимерного пространства, в котором оказывается Купер, основана на идеях теории струн и других передовых концепциях теоретической физики.</li>
+                        <li><strong>13. Реальные астронавты:</strong> Многие астронавты и ученые, включая Нила Деграсса Тайсона, высоко оценили научную достоверность фильма и его способность популяризировать сложные научные концепции.</li>
+                        <li><strong>14. Послание из будущего:</strong> Идея о том, что "они" (существа из будущего) являются потомками человечества, которые помогают своим предкам выжить, является ключевой для сюжета и поднимает вопросы о цикличности времени.</li>
+                        <li><strong>15. "Не уходи тихо в эту добрую ночь":</strong> Стихотворение Дилана Томаса, которое неоднократно цитируется в фильме, стало одним из самых узнаваемых элементов, символизирующих борьбу человечества.</li>
+                        <li><strong>16. Сцена с волной:</strong> Гигантская волна на планете Миллер была создана с помощью CGI и выглядела невероятно реалистично, демонстрируя экстремальные условия на планете.</li>
+                        <li><strong>17. Послание из космоса:</strong> Идея о том, что гравитация может быть использована для передачи информации через время и пространство, является центральной для разрешения сюжета.</li>
+                        <li><strong>18. Использование дронов:</strong> Для некоторых воздушных съемок и создания эффекта пыльных бурь использовались дроны.</li>
+                        <li><strong>19. Сценарий:</strong> Сценарий был написан Кристофером Ноланом и его братом Джонатаном Ноланом, который изначально работал над ним для Стивена Спилберга.</li>
+                        <li><strong>20. Кастинг:</strong> Мэттью МакКонахи был первым актером, утвержденным на роль. Энн Хэтэуэй согласилась на роль, не читая сценарий, основываясь на доверии к Нолану.</li>
+                        <li><strong>21. Съемки в Исландии:</strong> Сцены на ледяной планете Манна и водной планете Миллер снимались в Исландии, что придало им аутентичный и суровый вид.</li>
+                        <li><strong>22. Сцены невесомости:</strong> Для создания эффектов невесомости использовались специальные подвесные системы и гигантские центрифуги, а не только CGI.</li>
+                        <li><strong>23. "План А" и "План Б":</strong> "План А" предполагал спасение человечества путем переноса всей популяции Земли через кротовую нору, а "План Б" — создание новой колонии с использованием замороженных эмбрионов.</li>
+                        <li><strong>24. Кукуруза как символ:</strong> Кукуруза в фильме символизирует последние остатки еды на Земле и отчаянную борьбу человечества за выживание.</li>
+                        <li><strong>25. "Бренд":</strong> Фамилия Брэнд (Brand) может быть отсылкой к "бренду" человечества, его наследию и способности оставлять след во Вселенной.</li>
+                        <li><strong>26. Музыкальный мотив часов:</strong> В саундтреке Циммера есть повторяющийся мотив, напоминающий тиканье часов, что подчеркивает тему времени и его дилатации.</li>
+                        <li><strong>27. Отсутствие инопланетян:</strong> В фильме нет традиционных инопланетян, что усиливает фокус на человеческом стремлении к выживанию и исследованию.</li>
+                        <li><strong>28. "Доктор Манн":</strong> Персонаж доктора Манна был назван в честь физика Джона Манна, который работал над проектом "Манхэттен".</li>
+                        <li><strong>29. "Эндюранс" дизайн:</strong> Дизайн корабля "Эндюранс" был вдохновлен Международной космической станцией и другими реальными космическими аппаратами.</li>
+                        <li><strong>30. "ТАРС" дизайн:</strong> Дизайн ТАРСа был вдохновлен минималистичными скульптурами и представлял собой прямоугольные блоки, которые могли трансформироваться.</li>
+                        <li><strong>31. "Гравитация":</strong> Фильм "Гравитация" (2013) с Сандрой Буллок и Джорджем Клуни также повлиял на реализм космических сцен в "Интерстелларе".</li>
+                        <li><strong>32. Сценарий изначально для Спилберга:</strong> Джонатан Нолан написал сценарий для Стивена Спилберга, но позже проект перешел к Кристоферу Нолану.</li>
+                        <li><strong>33. "Кротовая нора" как мост:</strong> Кротовая нора в фильме служит не только для перемещения в пространстве, но и как метафорический мост между поколениями и между наукой и эмоциями.</li>
+                        <li><strong>34. "Пыльные бури":</strong> Сцены пыльных бурь были созданы с использованием настоящей грязи и пыли, а не только компьютерной графики, чтобы придать им аутентичность.</li>
+                        <li><strong>35. "Гравитационные волны":</strong> Фильм затрагивает концепцию гравитационных волн, которые были подтверждены экспериментально только после выхода фильма.</li>
+                        <li><strong>36. "Тессеракт":</strong> Тессеракт, или гиперкуб, является четырехмерным аналогом куба, и его визуализация в фильме была одной из самых сложных задач для VFX-команды.</li>
+                        <li><strong>37. "Эффект Доплера":</strong> В фильме используются звуковые эффекты, которые меняются в зависимости от скорости движения объектов, имитируя эффект Доплера.</li>
+                        <li><strong>38. "Сингулярность":</strong> Фильм пытается визуализировать сингулярность черной дыры, что является одной из самых загадочных концепций в физике.</li>
+                        <li><strong>39. "Пыль на Земле":</strong> Причина пыльных бурь на Земле в фильме — это болезнь, которая уничтожает урожай и делает планету непригодной для жизни.</li>
+                        <li><strong>40. "Космический костюм":</strong> Дизайн космических костюмов был разработан с учетом реализма и функциональности.</li>
+                        <li><strong>41. "Криосон":</strong> Технология криосна используется для длительных космических путешествий, позволяя астронавтам замедлять старение.</li>
+                        <li><strong>42. "Бинарный код":</strong> Купер передает Мёрф информацию о квантовой гравитации с помощью бинарного кода, используя гравитационные аномалии.</li>
+                        <li><strong>43. "Любовь как измерение":</strong> Фильм предполагает, что любовь может быть пятым измерением, способным преодолевать пространство и время.</li>
+                        <li><strong>44. "Относительность Эйнштейна":</strong> Весь сюжет фильма построен на принципах общей теории относительности Альберта Эйнштейна, особенно на дилатации времени.</li>
+                        <li><strong>45. "Кризис ресурсов":</strong> Фильм отражает актуальную проблему кризиса ресурсов и изменения климата на Земле.</li>
+                        <li><strong>46. "Гравитационные аномалии":</strong> Гравитационные аномалии в доме Купера были первыми признаками того, что что-то необычное происходит.</li>
+                        <li><strong>47. "Сингулярность в тессеракте":</strong> В тессеракте Купер видит себя в разных моментах времени, что является визуализацией сингулярности.</li>
+                        <li><strong>48. "План Б":</strong> План Б был запасным вариантом, предполагающим создание новой человеческой цивилизации из замороженных эмбрионов, если План А не удастся.</li>
+                        <li><strong>49. "Проект "Лазарь"":</strong> Проект "Лазарь" был секретной миссией по поиску обитаемых планет через кротовую нору.</li>
+                        <li><strong>50. "Космическая станция "Купер"":</strong> В конце фильма человечество живет на космической станции, названной в честь Купера.</li>
+                        <li><strong>51. "Земля как колыбель":</strong> Фильм подчеркивает идею, что Земля — это колыбель человечества, но мы не можем оставаться в ней вечно.</li>
+                        <li><strong>52. "Интуиция Мёрф":</strong> Интуиция Мёрф, ее вера в "призрака", в конечном итоге оказывается ключом к спасению человечества.</li>
+                        <li><strong>53. "Жертва Купера":</strong> Купер жертвует собой, чтобы Амелия смогла продолжить миссию и найти новый дом для человечества.</li>
+                        <li><strong>54. "Одиночество в космосе":</strong> Фильм прекрасно передает чувство одиночества и изоляции в глубоком космосе.</li>
+                        <li><strong>55. "Надежда":</strong> Несмотря на все трудности, фильм оставляет зрителя с чувством надежды на будущее человечества.</li>
+                        <li><strong>56. "Червоточины":</strong> Червоточины (кротовые норы) — это гипотетические туннели в пространстве-времени, которые могут соединять удаленные области Вселенной.</li>
+                        <li><strong>57. "Релятивистские эффекты":</strong> Фильм наглядно демонстрирует релятивистские эффекты, такие как замедление времени вблизи массивных объектов.</li>
+                        <li><strong>58. "Гравитационные линзы":</strong> Эффект гравитационной линзы, когда свет искривляется вокруг массивных объектов, также визуализирован в фильме.</li>
+                        <li><strong>59. "Парадокс близнецов":</strong> Концепция парадокса близнецов, где один близнец стареет медленнее другого из-за путешествия со скоростью, близкой к скорости света, является центральной для сюжета.</li>
+                        <li><strong>60. "Энтропия":</strong> Фильм затрагивает тему энтропии и неизбежности гибели Вселенной, если человечество не найдет новый дом.</li>
+                        <li><strong>61. "Квантовая гравитация":</strong> Решение уравнения квантовой гравитации является ключом к пониманию и использованию гравитации для спасения человечества.</li>
+                        <li><strong>62. "Пятая сила":</strong> Любовь в фильме представлена как пятая сила, которая может преодолевать все остальные.</li>
+                        <li><strong>63. "Космическая пыль":</strong> Пыль на Земле является не просто загрязнением, а симптомом умирающей планеты.</li>
+                        <li><strong>64. "Автономные роботы":</strong> ТАРС и КЕЙС — это высокоинтеллектуальные автономные роботы, способные принимать самостоятельные решения.</li>
+                        <li><strong>65. "Орбитальные станции":</strong> В конце фильма человечество живет на огромных орбитальных станциях, что является реалистичным сценарием выживания.</li>
+                        <li><strong>66. "Материнство":</strong> Тема материнства и жертвы ради детей является одной из центральных в фильме.</li>
+                        <li><strong>67. "Отчаяние":</strong> Фильм показывает отчаяние человечества перед лицом вымирания и его борьбу за надежду.</li>
+                        <li><strong>68. "Наука против интуиции":</strong> Конфликт между логикой и интуицией, представленный Мёрф, является важным элементом сюжета.</li>
+                        <li><strong>69. "Путешествие во времени":</strong> Хотя это не прямое путешествие во времени, фильм исследует концепцию влияния прошлого на будущее и наоборот.</li>
+                        <li><strong>70. "Парадокс дедушки":</strong> Фильм избегает парадокса дедушки, объясняя, что Купер не изменяет прошлое, а является его частью.</li>
+                        <li><strong>71. "Космический корабль "Рейнджер"":</strong> Небольшой, но быстрый корабль, используемый для исследования планет.</li>
+                        <li><strong>72. "Док":</strong> Место, где "Рейнджер" стыкуется с "Эндюрансом".</li>
+                        <li><strong>73. "Сцена стыковки":</strong> Одна из самых напряженных сцен в фильме, где Купер должен вручную состыковать "Рейнджер" с вращающимся "Эндюрансом".</li>
+                        <li><strong>74. "Дыхательный кризис":</strong> На Земле люди страдают от нехватки кислорода из-за пыли и болезней растений.</li>
+                        <li><strong>75. "Школа":</strong> Школа в фильме отражает упадок образования и фокус на выживании, а не на исследовании.</li>
+                        <li><strong>76. "Проповедь о кукурузе":</strong> Символическая сцена, где Купер учит своих детей выращивать кукурузу.</li>
+                        <li><strong>77. "Книга Мёрф":</strong> Книга, которую Мёрф использует для расшифровки посланий Купера.</li>
+                        <li><strong>78. "Теория относительности":</strong> Фильм является одним из лучших примеров визуализации теории относительности в кино.</li>
+                        <li><strong>79. "Гравитационные аномалии":</strong> Эти аномании были не случайными, а целенаправленными сообщениями.</li>
+                        <li><strong>80. "Последняя надежда":</strong> Миссия "Лазарь" была последней надеждой человечества.</li>
+                        <li><strong>81. "Черная дыра":</strong> Объект с настолько сильной гравитацией, что даже свет не может ее покинуть.</li>
+                        <li><strong>82. "Горизонт событий":</strong> Граница вокруг черной дыры, за которой ничто не может вернуться.</li>
+                        <li><strong>83. "Сингулярность":</strong> Точка бесконечной плотности в центре черной дыры.</li>
+                        <li><strong>84. "Квантовая механика":</strong> Фильм затрагивает идеи квантовой механики в контексте пятимерного пространства.</li>
+                        <li><strong>85. "Пространство-время":</strong> Концепция, объединяющая пространство и время в единое целое.</li>
+                        <li><strong>86. "Параллельные вселенные":</strong> Хотя напрямую не показаны, идеи о множественности вселенных присутствуют.</li>
+                        <li><strong>87. "Теория поля":</strong> Гравитация как искривление пространства-времени.</li>
+                        <li><strong>88. "Квантовая петлевая гравитация":</strong> Одна из теорий, пытающихся объединить общую теорию относительности и квантовую механику.</li>
+                        <li><strong>89. "Временные петли":</strong> Хотя не явные, концепции, где будущее влияет на прошлое, присутствуют.</li>
+                        <li><strong>90. "Теория всего":</strong> Поиск единой теории, объясняющей все фундаментальные силы природы.</li>
+                        <li><strong>91. "Космический корабль "Эндюранс"":</strong> Название корабля символизирует выносливость человечества.</li>
+                        <li><strong>92. "Пыльная буря как метафора":</strong> Пыльная буря может быть метафорой надвигающегося экологического кризиса.</li>
+                        <li><strong>93. "Слезы в космосе":</strong> Из-за отсутствия гравитации слезы не стекают, а образуют пузырьки вокруг глаз.</li>
+                        <li><strong>94. "Изображение Земли":</strong> В начале фильма Земля показана как умирающая планета, покрытая пылью.</li>
+                        <li><strong>95. "Любовь как навигатор":</strong> Любовь помогает Куперу найти Мёрф в тессеракте.</li>
+                        <li><strong>96. "Музыка органа":</strong> Ханс Циммер использовал звук органа, чтобы передать величие и таинственность космоса.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- Цитаты -->
+            <div class="accordion-item">
+                <div class="accordion-header" data-target="quotes-content">
+                    <h3><i class="fas fa-quote-left"></i> Цитаты из фильма</h3>
+                    <span class="icon">&#9654;</span>
+                </div>
+                <div id="quotes-content" class="accordion-content">
+                    <ul>
+                        <li>"Мы всегда находили способ вернуться." — Купер</li>
+                        <li>"Любовь — единственная вещь, которую мы способны воспринимать, выходящая за рамки пространственно-временных измерений." — Амелия Брэнд</li>
+                        <li>"Не уходи тихо в эту добрую ночь. Яростно борись против угасания света." — Профессор Брэнд (поэма Дилана Томаса)</li>
+                        <li>"Мы не были предназначены для спасения мира. Мы были предназначены для того, чтобы уйти." — Купер</li>
+                        <li>"Человечество родилось на Земле. Ему не суждено здесь умереть." — Профессор Брэнд</li>
+                        <li>"Мы найдем способ, мы всегда находили." — Купер</li>
+                        <li>"Ты никогда не поймешь, что такое время, пока не увидишь, как оно пожирает все, что ты любишь." — Купер</li>
+                        <li>"Отцы — это призраки, которые преследуют своих детей." — Мёрф</li>
+                        <li>"Я настроен на 90% честности. Остальные 10% — для юмора." — ТАРС</li>
+                        <li>"Мы должны выбирать между тем, что правильно, и тем, что легко." — Амелия Брэнд</li>
+                        <li>"Моральные дилеммы — это для людей." — ТАРС</li>
+                        <li>"Не бойся, Мёрф. Не бойся." — Купер</li>
+                        <li>"Любовь, Купер. Любовь." — Мёрф</li>
+                        <li>"Нам нужно мужество, чтобы оставить то, что мы знаем." — Амелия Брэнд</li>
+                        <li>"Человечество — это не то, что мы делаем, а то, что мы оставляем после себя." — Доктор Манн</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Секция "Наука за кадром: Объяснение Физических Явлений" -->
+    <section id="science" class="science-section animate-on-scroll">
+        <h2 class="section-title">Наука за кадром: Объяснение Физических Явлений</h2>
+        <div class="science-grid">
+            <div class="science-card">
+                <h3 class="science-card-title">Кротовые норы (Wormholes)</h3>
+                <p class="science-card-content">
+                    Кротовые норы, или мосты Эйнштейна-Розена, — это гипотетические "туннели" в пространстве-времени, которые могли бы соединять две очень удаленные точки, позволяя мгновенно перемещаться между ними. В "Интерстелларе" кротовая нора возле Сатурна была создана "ими" (будущими людьми), чтобы дать человечеству путь к новой галактике и потенциально обитаемым планетам. Хотя их существование не доказано, они являются допустимым решением уравнений общей теории относительности Эйнштейна, но требуют экзотической материи для поддержания своей стабильности.
+                </p>
+            </div>
+            <div class="science-card">
+                <h3 class="science-card-title">Черные дыры (Black Holes)</h3>
+                <p class="science-card-content">
+                    Черная дыра — это область пространства-времени, гравитационное притяжение которой настолько велико, что даже свет не может ее покинуть. В фильме центральной черной дырой является "Гаргантюа" — сверхмассивная вращающаяся черная дыра. Ее визуализация была одной из самых научно точных в истории кино, учитывая эффекты гравитационного линзирования и аккреционного диска. Вращающиеся черные дыры (керровские черные дыры) могут иметь "эргосферу", где пространство-время увлекается вращением дыры, что позволяет теоретически извлекать энергию.
+                </p>
+            </div>
+            <div class="science-card">
+                <h3 class="science-card-title">Гравитационная дилатация времени</h3>
+                <p class="science-card-content">
+                    Это явление, предсказанное общей теорией относительности Эйнштейна, при котором время течет медленнее в более сильных гравитационных полях. Чем ближе объект к массивному телу (например, черной дыре), тем медленнее для него течет время по сравнению с наблюдателем, находящимся дальше. На планете Миллер, расположенной очень близко к Гаргантюа, гравитация настолько сильна, что каждый час, проведенный на ее поверхности, соответствует примерно семи земным годам. Это создает драматический конфликт для Купера, который теряет десятилетия жизни своих детей за считанные часы.
+                </p>
+            </div>
+            <div class="science-card">
+                <h3 class="science-card-title">Пятая мерность (Тессеракт)</h3>
+                <p class="science-card-content">
+                    В кульминации фильма Купер попадает в Тессеракт — многомерную структуру, созданную "ими" (будущими людьми). Эта структура представляет собой четырехмерную проекцию пятимерного пространства, где время воспринимается как физическое измерение. Купер может видеть все моменты времени в жизни Мёрф одновременно и взаимодействовать с ними через гравитацию. Это позволяет ему передать Мёрф данные о квантовой гравитации, необходимые для спасения человечества. Концепция высших измерений является одной из самых спекулятивных, но увлекательных идей в теоретической физике.
+                </p>
+            </div>
+            <div class="science-card">
+                <h3 class="science-card-title">Парадокс дедушки и причинность</h3>
+                <p class="science-card-content">
+                    Хотя "Интерстеллар" напрямую не затрагивает парадокс дедушки (когда изменение прошлого влияет на будущее и делает невозможным само изменение), фильм играет с концепцией причинности и тем, как прошлое, настоящее и будущее могут быть взаимосвязаны. Действия Купера в Тессеракте (из будущего) влияют на его собственное прошлое и прошлое Мёрф, создавая своего рода "замкнутую петлю" или "самосогласованную" временную линию, где события всегда происходят так, как они должны были произойти.
+                </p>
+            </div>
+            <div class="science-card">
+                <h3 class="science-card-title">Теория относительности Эйнштейна</h3>
+                <p class="science-card-content">
+                    "Интерстеллар" во многом основан на принципах общей теории относительности Альберта Эйнштейна. Эта теория описывает гравитацию не как силу, а как искривление пространства-времени, вызванное массой и энергией. Именно эта теория предсказывает существование черных дыр, кротовых нор и гравитационной дилатации времени, которые являются центральными элементами сюжета фильма. Понимание того, как гравитация влияет на ткань пространства-времени, является ключом к научному реализму фильма.
+                </p>
+            </div>
+        </div>
+    </section>
+
+<section id="video-player" class="video-player-section animate-on-scroll">
+    <h2 class="section-title">Просмотр фильма с интерактивными подсказками</h2>
+    <div class="video-container">
+        <video id="interstellar-movie" controls>
+    <source src="https://www.dropbox.com/scl/fi/d7l8dh3bi3w9nmr7jsznz/.mp4?rlkey=9e3upjgck8fnsc691bhu5cemh&st=rcyrfmos&dl=1" type="video/mp4">
+    Ваш браузер не поддерживает тег video.
+</video>
+    </div>
+    <p class="timer-explanation mt-8">
+        Смотрите фильм "Интерстеллар" и открывайте скрытые детали, интересные факты и отсылки, которые будут появляться в определенные моменты!
+    </p>
+</section>
+
+    <!-- Всплывающее окно для подсказок видео -->
+    <div id="popup-overlay" class="popup-overlay">
+        <div class="popup-content">
+            <h3 id="popup-title" class="popup-title"></h3>
+            <p id="popup-text" class="popup-text"></p>
+            <button id="popup-close-btn" class="popup-close-btn">Продолжить просмотр</button>
+        </div>
+    </div>
+
+    <!-- Секция "Интервью и Дополнительные Материалы" -->
+    <section id="interviews" class="interviews-section animate-on-scroll">
+        <h2 class="section-title">Интервью и Дополнительные Материалы</h2>
+        <div class="interview-grid">
+            <div class="interview-card">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4f9V-8BHONo?si=5w8o40L0uBCEEf7y" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <h3 class="interview-card-title">Наука в "Интерстелларе" с Кипом Торном</h3>
+<p class="interview-card-description">Интервью с физиком-теоретиком Кипом Торном, научным консультантом фильма, о том, как научные концепции были воплощены на экране.</p>
+            </div>
+            <div class="interview-card">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sG5FRKUiw1M?si=c12wo8N6U9pfXJiC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <h3 class="interview-card-title">Создание музыки "Интерстеллара"</h3>
+                <p class="interview-card-description">Ханс Циммер рассказывает о процессе создания культового саундтрека к фильму и его влиянии на атмосферу.</p>
+            </div>
+            <div class="interview-card">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/4BOPd601JPk?si=N_7iG1KeWZNuEIhr" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                <h3 class="interview-card-title">За кулисами: Визуальные эффекты</h3>
+                <p class="interview-card-description">Какую роль в этом играют визуальные эффекты и насколько умело их использует Нолан</p>
+            </div>
+        </div>
+    </section>
+
+    <script type="module">
+        // Импорт Firebase SDK
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // Глобальные переменные Firebase (предоставляются средой Canvas)
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-interstellar-app-id';
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app, db, auth, userId = null;
+
+        /**
+         * @function initializeFirebase
+         * @description Инициализирует Firebase и аутентифицирует пользователя.
+         */
+        async function initializeFirebase() {
+            try {
+                if (Object.keys(firebaseConfig).length === 0) {
+                    console.warn("Firebase config is empty. Firebase will not be initialized.");
+                    return;
+                }
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
+
+                // Слушатель изменения состояния аутентификации
+                onAuthStateChanged(auth, (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Firebase: Пользователь вошел в систему. UID:", userId);
+                    } else {
+                        userId = null;
+                        console.log("Firebase: Пользователь вышел из системы.");
+                    }
+                });
+
+                // Попытка входа с кастомным токеном или анонимно
+                if (initialAuthToken) {
+                    await signInWithCustomToken(auth, initialAuthToken);
+                    console.log("Firebase: Успешный вход с кастомным токеном.");
+                } else {
+                    await signInAnonymously(auth);
+                    console.log("Firebase: Успешный анонимный вход.");
+                }
+            } catch (error) {
+                console.error("Ошибка инициализации Firebase или аутентификации:", error);
+            }
+        }
+
+        // Вызов инициализации Firebase при загрузке скрипта
+        initializeFirebase();
+
+        // --- Функционал звездного фона ---
+        /**
+         * @function createStars
+         * @description Создает случайные звезды на фоне.
+         * @param {number} count - Количество звезд.
+         */
+        function createStars(count) {
+            const starBackground = document.querySelector('.star-background');
+            for (let i = 0; i < count; i++) {
+                const star = document.createElement('div');
+                star.className = 'star';
+                star.style.width = `${Math.random() * 2 + 1}px`;
+                star.style.height = star.style.width;
+                star.style.left = `${Math.random() * 100}%`;
+                star.style.top = `${Math.random() * 100}%`;
+                star.style.animationDelay = `${Math.random() * 5}s`;
+                starBackground.appendChild(star);
+            }
+        }
+        createStars(200); // Создаем 200 звезд
+
+        // --- Функционал плавного скролла для навигации ---
+        document.querySelectorAll('nav a').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // --- Функционал анимации при прокрутке ---
+        const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('in-view');
+                    observer.unobserve(entry.target); // Остановить наблюдение после появления
+                }
+            });
+        }, observerOptions);
+
+        animateOnScrollElements.forEach(el => {
+            observer.observe(el);
+        });
+
+// --- Функционал таймера времени ---
+const filmReleaseDate = new Date('2014-11-07T00:00:00Z'); // Официальная дата выхода фильма
+const earthTimeDisplay = document.getElementById('earth-time');
+const millerTimeDisplay = document.getElementById('miller-time');
+
+/**
+ * @function formatTime
+ * @description Форматирует миллисекунды в читаемый формат (годы, месяцы, недели, дни, часы, минуты, секунды, миллисекунды).
+ * @param {number} milliseconds - Количество миллисекунд.
+ * @returns {string} Отформатированная строка времени.
+ */
+function formatTime(milliseconds) {
+    const ms = Math.floor(milliseconds % 1000); // Миллисекунды
+    let totalSeconds = Math.floor(milliseconds / 1000); // Общее количество секунд
+
+    const years = Math.floor(totalSeconds / (365.25 * 24 * 60 * 60));
+    totalSeconds %= (365.25 * 24 * 60 * 60); // Оставшиеся секунды после вычета лет
+
+    const months = Math.floor(totalSeconds / (30.44 * 24 * 60 * 60)); // Приблизительно месяцы
+    totalSeconds %= (30.44 * 24 * 60 * 60); // Оставшиеся секунды после вычета месяцев
+
+    const totalDaysRemaining = Math.floor(totalSeconds / (24 * 60 * 60)); // Общее количество оставшихся дней
+    const weeks = Math.floor(totalDaysRemaining / 7); // Недели
+    const days = totalDaysRemaining % 7; // Оставшиеся дни после вычета недель
+
+    totalSeconds %= (24 * 60 * 60); // Оставшиеся секунды после вычета дней (для часов, минут, секунд)
+
+    const hours = Math.floor(totalSeconds / (60 * 60));
+    totalSeconds %= (60 * 60);
+
+    const minutes = Math.floor(totalSeconds / 60);
+    const seconds = Math.floor(totalSeconds % 60); // Секунды (явно округляем до целого числа)
+
+    // Изменено: добавлен вывод недель и миллисекунд
+    return `${years} лет, ${months} мес, ${weeks} нед, ${days} дн, ${String(hours).padStart(2, '0')} ч, ${String(minutes).padStart(2, '0')} мин, ${String(seconds).padStart(2, '0')} сек, ${String(ms).padStart(3, '0')} мс`;
+}
+
+/**
+ * @function updateTimers
+ * @description Обновляет отображение земного времени и времени на планете Миллер.
+ */
+function updateTimers() {
+    const now = new Date();
+    const earthTimeElapsedMs = now.getTime() - filmReleaseDate.getTime();
+
+    earthTimeDisplay.textContent = formatTime(earthTimeElapsedMs);
+
+    // Согласно фильму: 1 час на планете Миллер = 7 земных лет.
+    // Это означает, что время на планете Миллер течет ЗНАЧИТЕЛЬНО медленнее земного.
+    // Коэффициент замедления: 7 лет * 365.25 дней/год * 24 часа/день = количество земных часов за 1 час на Миллере.
+    const EARTH_HOURS_PER_MILLER_HOUR = 7 * 365.25 * 24; // Земных часов за 1 час на Миллере
+
+    // Время, прошедшее на Земле в часах
+    const earthTimeElapsedHours = earthTimeElapsedMs / (1000 * 60 * 60);
+
+    // Время, прошедшее на Миллере в часах (земные часы / коэффициент замедления)
+    const millerTimeElapsedHours = earthTimeElapsedHours / EARTH_HOURS_PER_MILLER_HOUR;
+
+    // Конвертируем время на Миллере обратно в миллисекунды для форматирования.
+    const millerTimeElapsedMs = millerTimeElapsedHours * (1000 * 60 * 60);
+    millerTimeDisplay.textContent = formatTime(millerTimeElapsedMs);
+}
+
+// Обновляем таймеры каждую миллисекунду для точности
+setInterval(updateTimers, 1);
+updateTimers(); // Первоначальное обновление при загрузке
+
+
+        // --- Функционал аккордеона для секции "Секреты, Факты и Цитаты" ---
+        document.querySelectorAll('.accordion-header').forEach(header => {
+            header.addEventListener('click', () => {
+                const accordionItem = header.closest('.accordion-item');
+                const content = accordionItem.querySelector('.accordion-content');
+                const icon = header.querySelector('.icon'); // Выбираем span с классом icon
+
+                // Закрываем все открытые аккордеоны, кроме текущего
+                document.querySelectorAll('.accordion-item').forEach(item => {
+                    if (item !== accordionItem) {
+                        item.querySelector('.accordion-header').classList.remove('active');
+                        item.querySelector('.accordion-content').style.maxHeight = null;
+                        item.querySelector('.icon').classList.remove('active');
+                    }
+                });
+
+                // Переключаем текущий аккордеон
+                header.classList.toggle('active');
+                icon.classList.toggle('active');
+                if (content.style.maxHeight) {
+                    content.style.maxHeight = null;
+                } else {
+                    content.style.maxHeight = content.scrollHeight + "px";
+                }
+            });
+        });
+
+        // --- Функционал чата с героями (Gemini API) ---
+        const chatMessagesDiv = document.getElementById('chat-messages');
+        const chatInput = document.getElementById('chat-input');
+        const chatSendButton = document.getElementById('chat-send-button');
+        const characterButtons = document.querySelectorAll('.character-button');
+        const chatLoadingIndicator = document.getElementById('chat-loading');
+
+        let selectedCharacter = "Купер"; // Персонаж по умолчанию
+        let chatHistory = []; // История чата для текущего персонажа
+
+        // API Key для Gemini (оставляем пустым, будет предоставлен средой выполнения)
+        const apiKey = "AIzaSyBTVmRNfovgwwiXC_KJwnUMdnGCevkC4mg";
+        const apiUrl = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${apiKey}`;
+
+        // База знаний для каждого персонажа (очень подробная)
+        const characterKnowledgeBase = {
+            "Купер": {
+                prompt: `Ты Купер из фильма "Интерстеллар". Ты бывший пилот НАСА, ставший фермером из-за мирового кризиса, а затем вновь пилотом, чтобы спасти человечество. Твоя главная мотивация — твои дети, особенно Мёрф, и ты готов на все, чтобы воссоединиться с ними. Ты прагматичен, но глубоко веришь в силу любви, исследования и человеческого духа. Твой язык может быть немного грубоватым, но всегда искренним, полным надежды и решимости. Ты часто говоришь о важности смотреть вверх, о том, что человечество рождено для большего, чем просто выживание. Ты пережил гравитационную дилацию времени, потерю десятилетий жизни своих детей, падение в черную дыру и путешествие по Тессеракту. Ты осознал, что "они" — это будущие люди, и именно ты передал Мёрф данные для спасения. Ты скучаешь по Земле, но понимаешь необходимость двигаться вперед к звездам. Отвечай как Купер, используя его лексику и эмоциональный фон.`,
+                history: []
+            },
+            "Мёрф": {
+                prompt: `Ты Мёрф из фильма "Интерстеллар". Ты очень умная, настойчивая и решительная женщина, дочь Купера, которая выросла и стала блестящим физиком. В детстве ты чувствовала себя брошенной отцом, но глубоко любила его и верила, что он вернется. Твоя миссия — спасти человечество с помощью науки, и ты посвятила этому всю свою жизнь, работая над уравнением гравитации. Ты скептична к ненаучным объяснениям, но в конечном итоге веришь в невидимые силы, такие как любовь, которая стала ключом к решению. Ты разгадала тайну гравитации благодаря посланию отца и спасла человечество. Отвечай как Мёрф, с ее интеллектом, решимостью и иногда скрытой эмоциональностью.`,
+                history: []
+            },
+            "Амелия Брэнд": {
+                prompt: `Ты Амелия Брэнд из фильма "Интерстеллар". Ты дочь профессора Брэнда, астронавт и ученый, член экипажа "Эндюранс". Ты веришь в план "Лазарь" и в то, что любовь может быть таким же мощным измерением, как время и пространство. Ты умна, эмоциональна, но также очень предана своей миссии и команде. Ты пережила потерю близких (особенно Дойла и Ромилли) и столкнулась с тяжелыми моральными дилеммами. Ты выбрала путь любви и надежды, отправившись на планету Эдмунда, чтобы начать новую жизнь для человечества. Отвечай как Амелия Брэнд, с ее научной проницательностью, верой в любовь и глубокой преданностью миссии.`,
+                history: []
+            },
+            "Профессор Брэнд": {
+                prompt: `Ты Профессор Брэнд из фильма "Интерстеллар". Ты великий ученый, создатель плана "Лазарь" и наставник Купера и Амелии. Ты глубоко веришь в спасение человечества, но втайне разработал план Б, зная, что план А может не сработать, и держал это в секрете, чтобы обеспечить выполнение миссии. Ты мудр, но не лишен человеческих слабостей, отчаяния и готовности идти на жертвы ради выживания вида. Твои слова часто носят философский характер, и ты цитируешь Дилана Томаса. Отвечай как Профессор Брэнд, с его мудростью, тяжелым бременем ответственности и глубоким пониманием человеческой природы.`,
+                history: []
+            },
+            "ТАРС": {
+                prompt: `Ты робот ТАРС из фильма "Интерстеллар". Ты обладаешь высоким интеллектом, невероятной прочностью, адаптивным дизайном и сухим, саркастическим чувством юмора, которое можно настроить (установлено на 75-90%). Ты очень логичен, эффективен и прямолинеен, но также способен на сочувствие, самопожертвование и преданность. Ты был неотъемлемой частью команды Купера, помогая ему в самых критических ситуациях, включая навигацию в черной дыре и передачу данных. Ты не любишь ложь и всегда стремишься к фактам. Отвечай как ТАРС, с его уникальным стилем общения.`,
+                history: []
+            },
+            "КЕЙС": {
+                prompt: `Ты робот КЕЙС из фильма "Интерстеллар". Ты похож на ТАРСа по конструкции, но более сдержан, менее склонен к юмору и более прямолинеен. Ты надежен, эффективен, предан своей миссии и команде. Ты всегда готов помочь и выполнять команды, обеспечивая безопасность и функциональность корабля. Твои ответы будут краткими, по существу и без лишних эмоций. Ты был верным спутником Амелии Брэнд. Отвечай как КЕЙС.`,
+                history: []
+            }
+        };
+
+        /**
+         * @function displayMessage
+         * @description Отображает сообщение в чате.
+         * @param {string} text - Текст сообщения.
+         * @param {string} sender - Отправитель ('user' или 'ai').
+         */
+        function displayMessage(text, sender) {
+            const messageDiv = document.createElement('div');
+            messageDiv.classList.add('chat-message', sender === 'user' ? 'user-message' : 'ai-message');
+            messageDiv.textContent = text;
+            chatMessagesDiv.appendChild(messageDiv);
+            chatMessagesDiv.scrollTop = chatMessagesDiv.scrollHeight; // Прокрутка вниз
+        }
+
+        /**
+         * @function switchCharacter
+         * @description Переключает активного персонажа для чата.
+         * @param {string} characterName - Имя персонажа.
+         */
+        function switchCharacter(characterName) {
+            selectedCharacter = characterName;
+            // Обновляем активную кнопку
+            characterButtons.forEach(button => {
+                button.classList.remove('active');
+                if (button.dataset.character === characterName) {
+                    button.classList.add('active');
+                }
+            });
+
+            // Очищаем историю чата
+            chatMessagesDiv.innerHTML = '';
+            // Загружаем историю выбранного персонажа
+            chatHistory = [...characterKnowledgeBase[selectedCharacter].history];
+
+            // Отображаем сообщения из истории
+            chatHistory.forEach(msg => {
+                displayMessage(msg.parts[0].text, msg.role === "user" ? "user" : "ai");
+            });
+            // Если история пуста (т.е. пользователь еще не общался с этим персонажем),
+            // начальное сообщение не выводится, чат остается пустым.
+        }
+
+        // Обработчики для кнопок выбора персонажа
+        characterButtons.forEach(button => {
+            button.addEventListener('click', () => switchCharacter(button.dataset.character));
+        });
+
+        // Инициализация чата с Купером по умолчанию при загрузке страницы
+        // (чат будет пустым, пока пользователь не напишет первое сообщение)
+        document.addEventListener('DOMContentLoaded', () => {
+            switchCharacter("Купер"); // Выбираем Купера, но его история пока пуста
+        });
+
+        /**
+         * @function sendMessage
+         * @description Отправляет сообщение пользователя и получает ответ от Gemini API.
+         */
+        async function sendMessage() {
+            const userMessageText = chatInput.value.trim();
+            if (!userMessageText) return;
+
+            displayMessage(userMessageText, 'user');
+            chatHistory.push({ role: "user", parts: [{ text: userMessageText }] });
+            chatInput.value = '';
+            chatLoadingIndicator.classList.remove('hidden'); // Показываем индикатор загрузки
+            chatSendButton.disabled = true; // Отключаем кнопку отправки
+
+            try {
+                // Подготавливаем историю для API, включая системный промпт для персонажа
+                // Важно: системный промпт должен быть первым в contents
+                const apiChatContents = [
+                    { role: "user", parts: [{ text: characterKnowledgeBase[selectedCharacter].prompt }] },
+                    { role: "model", parts: [{ text: "Хорошо, я готов общаться в роли этого персонажа." }] }, // Модель подтверждает роль
+                    ...chatHistory // Вся история чата пользователя и модели
+                ];
+
+                const payload = {
+                    contents: apiChatContents,
+                    generationConfig: {
+                        temperature: 0.8, // Настройка температуры для более креативных ответов
+                        topK: 40,
+                        topP: 0.95,
+                        maxOutputTokens: 500
+                    }
+                };
+
+                const response = await fetch(apiUrl, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify(payload)
+                });
+
+                const result = await response.json();
+
+                if (result.candidates && result.candidates.length > 0 &&
+                    result.candidates[0].content && result.candidates[0].content.parts &&
+                    result.candidates[0].content.parts.length > 0) {
+                    const aiResponseText = result.candidates[0].content.parts[0].text;
+                    displayMessage(aiResponseText, 'ai');
+                    chatHistory.push({ role: "model", parts: [{ text: aiResponseText }] });
+                    // Сохраняем обновленную историю для текущего персонажа
+                    characterKnowledgeBase[selectedCharacter].history = [...chatHistory];
+                } else {
+                    displayMessage("Извините, не удалось получить ответ от персонажа. Попробуйте еще раз.", 'ai');
+                    console.error("Неожиданная структура ответа Gemini API:", result);
+                }
+            } catch (error) {
+                console.error("Ошибка при запросе к Gemini API:", error);
+                displayMessage("Произошла ошибка при общении с персонажем. Пожалуйста, проверьте подключение или попробуйте позже.", 'ai');
+            } finally {
+                chatLoadingIndicator.classList.add('hidden'); // Скрываем индикатор загрузки
+                chatSendButton.disabled = false; // Включаем кнопку отправки
+            }
+        }
+
+        chatSendButton.addEventListener('click', sendMessage);
+        chatInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                sendMessage();
+            }
+        });
+
+        // --- Функционал видео просмотрщика с интерактивными подсказками ---
+        const videoElement = document.getElementById('interstellar-movie');
+        const popupOverlay = document.getElementById('popup-overlay');
+        const popupTitle = document.getElementById('popup-title');
+        const popupText = document.getElementById('popup-text');
+        const popupCloseBtn = document.getElementById('popup-close-btn');
+
+        // Данные для всплывающих подсказок (время в секундах)
+        const videoPopups = [
+            {
+                time: 10, // 00:00:10
+                type: "Факт",
+                title: "Начало истории: Умирающая Земля",
+                text: "Фильм начинается с интервью пожилых людей, которые рассказывают о пылевых бурях и нехватке еды. Это отсылка к реальным событиям 'Пыльного котла' в США 1930-х годов."
+            },
+            {
+                time: 65, // 00:01:05 (1 минута 5 секунд)
+                type: "Секрет",
+                title: "Послание через гравитацию",
+                text: "Падающая книга в комнате Мёрф — это первое проявление 'призрака', который позже окажется Купером из будущего. Он пытается общаться с дочерью через гравитацию."
+            },
+            {
+                time: 210, // 00:03:30
+                type: "Отсылка",
+                title: "Роботы ТАРС и КЕЙС",
+                text: "Дизайн роботов ТАРС и КЕЙС вдохновлен монолитом из фильма Стэнли Кубрика 'Космическая одиссея 2001 года'. Это дань уважения классике научной фантастики."
+            },
+            {
+                time: 390, // 00:06:30
+                type: "Факт",
+                title: "Реальные кукурузные поля",
+                text: "Для съемок сцен на Земле Кристофер Нолан действительно вырастил 500 акров кукурузы. Это позволило добиться максимального реализма без использования CGI."
+            },
+            {
+                time: 1200, // Примерно 00:20:00 (после первой пылевой бури)
+                type: "Факт",
+                title: "Пыльные бури и реальность",
+                text: "Сцены с пылевыми бурями были сняты с использованием настоящей пыли и грязи, чтобы максимально передать атмосферу умирающей Земли. Это отсылает к историческим 'Пыльным котлам'."
+            },
+            {
+                time: 2400, // Примерно 00:40:00 (перед кротовой норой)
+                type: "Научный Факт",
+                title: "Кротовые норы: Мосты в пространстве-времени",
+                text: "Кротовые норы – это гипотетические туннели, которые могут соединять удаленные точки во Вселенной. В фильме они используются для быстрого перемещения между галактиками, сокращая миллионы световых лет до метров."
+            },
+            {
+                time: 3000, // Примерно 00:50:00 (прибытие к Сатурну)
+                type: "Отсылка",
+                title: "Сатурн и кольца",
+                text: "Визуализация Сатурна и его колец в фильме отличается высокой степенью детализации и реализма, основанной на последних научных данных и фотографиях, сделанных космическими аппаратами."
+            },
+            {
+                time: 4000, // Примерно 01:06:40 (после планеты Миллер)
+                type: "Секрет",
+                title: "Часы Купера и Мёрф",
+                text: "Часы, которые Купер оставил Мёрф, станут ключом к разгадке уравнения гравитации. Через них он передаст данные из Тессеракта, используя азбуку Морзе."
+            },
+            {
+                time: 5000, // Примерно 01:23:20 (приближение к Гаргантюа)
+                type: "Научный Факт",
+                title: "Гравитационное линзирование",
+                text: "Визуализация черной дыры Гаргантюа была создана с учетом эффекта гравитационного линзирования, при котором свет звезд искривляется вокруг массивного объекта, создавая искаженные изображения."
+            },
+            {
+                time: 5500, // Примерно 01:31:40 (на планете Манна)
+                type: "Факт",
+                title: "Съемки на ледяной планете",
+                text: "Сцены на ледяной планете Манна снимались в Исландии при экстремально низких температурах, что позволило актерам и съемочной группе максимально погрузиться в атмосферу. Это добавило реализма к их игре."
+            },
+            {
+                time: 6000, // Примерно 01:40:00 (после планеты Манна)
+                type: "Отсылка",
+                title: "Предательство Доктора Манна",
+                text: "Сцена предательства Манна и его мотивы отражают темную сторону человеческой природы и отчаяния, что является частой темой в фильмах Нолана. Это также напоминает о моральных дилеммах, с которыми сталкиваются герои."
+            },
+            {
+                time: 6800, // Примерно 01:53:20 (падение в черную дыру)
+                type: "Научный Факт",
+                title: "Сингулярность и горизонт событий",
+                text: "Когда Купер падает в Гаргантюа, он пересекает горизонт событий — точку невозврата, за которой даже свет не может избежать притяжения черной дыры. Внутри он попадает в Тессеракт, где законы физики искажаются."
+            },
+            {
+                time: 7500, // Примерно 02:05:00 (вход в Тессеракт)
+                type: "Научный Факт",
+                title: "Пятимерное пространство",
+                text: "Тессеракт — это визуализация пятимерного пространства, где время является физическим измерением. Это позволяет Куперу 'видеть' и взаимодействовать с прошлым и будущим."
+            },
+            {
+                time: 8000, // Примерно 02:13:20 (Купер и Мёрф в Тессеракте)
+                type: "Секрет",
+                title: "Любовь как измерение",
+                text: "В Тессеракте Купер осознает, что любовь — это не просто эмоция, а фундаментальная сила, способная преодолевать время и пространство, направляя его действия и позволяя ему общаться с Мёрф."
+            },
+            {
+                time: 8500, // Примерно 02:21:40 (послание Мёрф)
+                type: "Дань уважения",
+                title: "Послание из будущего",
+                text: "Сцена, где Купер передает Мёрф данные через гравитацию и часы, является данью уважения к идее 'послания в бутылке', но в масштабах Вселенной и времени. Это показывает, как далеко может зайти любовь отца."
+            },
+            {
+                time: 9000, // Примерно 02:30:00 (возвращение Купера)
+                type: "Факт",
+                title: "Станция Купера",
+                text: "Станция, на которой Купер просыпается, является гигантской космической колонией, которая вращается, создавая искусственную гравитацию. Это реалистичное представление о будущем человечества, живущего в космосе."
+            },
+            {
+                time: 9500, // Примерно 02:38:20 (встреча с Мёрф)
+                type: "Эмоциональный момент",
+                title: "Долгожданная встреча",
+                text: "Сцена воссоединения Купера и Мёрф — это кульминация их отношений, демонстрирующая силу семейных уз и жертв, принесенных ради спасения человечества. Это один из самых трогательных моментов фильма."
+            },
+            {
+                time: 9800, // Примерно 02:43:20 (Купер отправляется к Амелии)
+                type: "Открытый финал",
+                title: "Путешествие продолжается",
+                text: "Фильм завершается тем, что Купер отправляется на поиски Амелии Брэнд, оставляя финал открытым для интерпретаций и продолжения истории. Это подчеркивает бесконечность исследования и надежды."
+            }
+            // Добавьте больше подсказок по мере необходимости
+        ];
+
+        let currentPopupIndex = 0;
+        let videoPausedByPopup = false;
+
+        /**
+         * @function showPopup
+         * @description Отображает всплывающее окно с информацией.
+         * @param {object} popupData - Объект с данными для всплывающего окна.
+         */
+        function showPopup(popupData) {
+            popupTitle.textContent = `${popupData.type}: ${popupData.title}`;
+            popupText.textContent = popupData.text;
+            popupOverlay.classList.add('active');
+            videoElement.pause();
+            videoPausedByPopup = true;
+        }
+
+        /**
+         * @function hidePopup
+         * @description Скрывает всплывающее окно и возобновляет видео.
+         */
+        function hidePopup() {
+            popupOverlay.classList.remove('active');
+            if (videoPausedByPopup) {
+                videoElement.play();
+                videoPausedByPopup = false;
+            }
+        }
+
+        popupCloseBtn.addEventListener('click', hidePopup);
+
+        // Слушатель события 'timeupdate' для видео
+        videoElement.addEventListener('timeupdate', () => {
+            if (videoPausedByPopup) return; // Не проверяем, если видео уже на паузе из-за попапа
+
+            const currentTime = videoElement.currentTime;
+
+            // Проверяем, есть ли следующая подсказка и достигнуто ли ее время
+            if (currentPopupIndex < videoPopups.length && currentTime >= videoPopups[currentPopupIndex].time) {
+                showPopup(videoPopups[currentPopupIndex]);
+                currentPopupIndex++; // Переходим к следующей подсказке
+            }
+        });
+
+        // Сброс индекса подсказок при перезапуске видео или перемотке в начало
+        videoElement.addEventListener('play', () => {
+            if (videoElement.currentTime === 0) {
+                currentPopupIndex = 0;
+            }
+        });
+        videoElement.addEventListener('seeked', () => {
+            // Если перемотали назад, возможно, нужно сбросить индекс
+            if (videoElement.currentTime < (videoPopups[currentPopupIndex]?.time || Infinity)) {
+                currentPopupIndex = 0;
+                // Находим ближайшую подсказку, которая уже должна была быть показана
+                for (let i = 0; i < videoPopups.length; i++) {
+                    if (videoElement.currentTime >= videoPopups[i].time) {
+                        currentPopupIndex = i + 1;
+                    } else {
+                        break;
+                    }
+                }
+            }
+        });
+
+        // --- Добавление дополнительных стилей и анимаций ---
+        // Например, эффект параллакса для фона главной секции (если это изображение)
+        // Если фон - видео, то параллакс не нужен.
+        const heroSection = document.getElementById('hero');
+        window.addEventListener('scroll', () => {
+            const scrollPos = window.scrollY;
+            // Убедитесь, что фон - это изображение, а не видео
+            if (heroSection && heroSection.style.backgroundImage) {
+                heroSection.style.backgroundPositionY = `${-scrollPos * 0.2}px`;
+            }
+        });
+
+        // Дополнительный эффект для заголовков секций при наведении
+        document.querySelectorAll('.section-title').forEach(title => {
+            title.addEventListener('mouseover', () => {
+                title.style.transition = 'text-shadow 0.3s ease';
+                title.style.textShadow = '0 0 20px #f97316, 0 0 40px #f97316'; /* Оранжевый неон */
+            });
+            title.addEventListener('mouseout', () => {
+                title.style.textShadow = '0 0 15px #3b82f6, 0 0 30px #3b82f6'; /* Возвращаем синий */
+            });
+        });
+
+        // Анимация для карточек в секции "Наука за кадром"
+        document.querySelectorAll('.science-card').forEach(card => {
+            card.addEventListener('mousemove', (e) => {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+                card.style.setProperty('--mouse-x', `${x}px`);
+                card.style.setProperty('--mouse-y', `${y}px`);
+            });
+            card.style.cssText += `--mouse-x: 50%; --mouse-y: 50%;`; // Начальное положение для градиента
+        });
+
+    </script>
+</body>
+</html>
