@@ -606,7 +606,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at top right, rgba(249, 115, 22, 0.1) 0%, transparent 50%);
+            background: radial-gradient(circle at var(--mouse-x) var(--mouse-y), rgba(249, 115, 22, 0.1) 0%, transparent 50%);
             z-index: 0;
             opacity: 0;
             transition: opacity 0.5s ease;
@@ -828,10 +828,74 @@
             }
         }
 
+        /* Стили для гамбургер-меню */
+        .hamburger-menu {
+            display: none; /* Скрываем по умолчанию */
+            flex-direction: column;
+            cursor: pointer;
+            z-index: 1001; /* Поверх всего */
+        }
+
+        .hamburger-menu span {
+            height: 3px;
+            width: 25px;
+            background-color: #e0e0e0;
+            margin-bottom: 4px;
+            border-radius: 2px;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .nav-menu-mobile {
+            /* display: none; */ /* Убрано, чтобы allow transitions */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(10, 10, 10, 0.95);
+            backdrop-filter: blur(10px);
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            z-index: 999;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease-in-out, visibility 0.3s ease-in-out;
+        }
+
+        .nav-menu-mobile.active {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .nav-menu-mobile li {
+            margin: 1rem 0;
+        }
+
+        .nav-menu-mobile .nav-link {
+            font-size: 1.8rem;
+            padding: 1rem 2rem;
+        }
+
         @media (max-width: 768px) {
-            .nav-link {
-                padding: 0.5rem 0.6rem; /* Еще уменьшаем padding */
-                font-size: 0.85rem; /* Уменьшаем размер шрифта */
+            .navbar .nav-menu {
+                display: none; /* Скрываем обычное меню */
+            }
+
+            .hamburger-menu {
+                display: flex; /* Показываем гамбургер-меню */
+            }
+
+            .hamburger-menu.active span:nth-child(1) {
+                transform: translateY(7px) rotate(45deg);
+            }
+
+            .hamburger-menu.active span:nth-child(2) {
+                opacity: 0;
+            }
+
+            .hamburger-menu.active span:nth-child(3) {
+                transform: translateY(-7px) rotate(-45deg);
             }
 
             .hero-title {
@@ -899,16 +963,6 @@
         }
 
         @media (max-width: 480px) {
-            .nav-menu {
-                flex-direction: column;
-                gap: 0.5rem;
-            }
-
-            .nav-link {
-                font-size: 0.75rem; /* Еще уменьшаем размер шрифта */
-                padding: 0.4rem 0.5rem;
-            }
-
             .hero-title {
                 font-size: 2.5rem;
             }
@@ -1006,7 +1060,8 @@
         <div class="text-3xl font-bold text-white tracking-wider" style="font-family: 'Orbitron', sans-serif; text-shadow: 0 0 10px #f97316, 0 0 20px #f97316;">
             ИНТЕРСТЕЛЛАР
         </div>
-        <ul class="flex space-x-4 nav-menu"> <!-- Уменьшен space-x-6 до space-x-4 -->
+        <!-- Обычное меню для больших экранов -->
+        <ul class="flex space-x-4 nav-menu">
             <li><a href="#hero" class="nav-link">Главная</a></li>
             <li><a href="#crew-cast" class="nav-link">Создатели</a></li>
             <li><a href="#timer" class="nav-link">Таймер Времени</a></li>
@@ -1014,12 +1069,30 @@
             <li><a href="#facts-quotes" class="nav-link">Секреты и Факты</a></li>
             <li><a href="#science" class="nav-link">Наука за кадром</a></li>
             <li><a href="#video-player" class="nav-link">Просмотр фильма</a></li>
-            <li><a href="#interviews" class="nav-link">Интервью</a></li> <!-- Сокращено название -->
+            <li><a href="#interviews" class="nav-link">Интервью</a></li>
         </ul>
+        <!-- Гамбургер-меню для мобильных -->
+        <div class="hamburger-menu" id="hamburger-menu">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
     </nav>
 
+    <!-- Мобильное навигационное меню (скрыто по умолчанию) -->
+    <ul class="nav-menu-mobile" id="nav-menu-mobile">
+        <li><a href="#hero" class="nav-link">Главная</a></li>
+        <li><a href="#crew-cast" class="nav-link">Создатели</a></li>
+        <li><a href="#timer" class="nav-link">Таймер Времени</a></li>
+        <li><a href="#chat" class="nav-link">Чат с Героями</a></li>
+        <li><a href="#facts-quotes" class="nav-link">Секреты и Факты</a></li>
+        <li><a href="#science" class="nav-link">Наука за кадром</a></li>
+        <li><a href="#video-player" class="nav-link">Просмотр фильма</a></li>
+        <li><a href="#interviews" class="nav-link">Интервью</a></li>
+    </ul>
+
     <!-- Главная секция (Hero Section) -->
-    <section id="hero" class="hero-section" style="background-image: url('data:image/jpeg;base64,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');">
+    <section id="hero" class="hero-section" style="background-image: url('https://avatars.mds.yandex.net/i?id=ba9cd013832fcd79d6f67f8195836867_l-4237119-images-thumbs&n=13');">
         <div class="hero-overlay"></div>
         <div class="hero-content">
             <div class="hero-text-container">
@@ -1089,12 +1162,12 @@
                 <div class="crew-member-name">Хойт Ван Хойтема</div>
                 <div class="crew-member-role">Оператор</div>
             </a>
-            <a href="https://www.kinopoisk.ru/name/1642584/" target="_blank" class="crew-member">
+            <a href="https://www.kinopoisk.ru/name/50590/" target="_blank" class="crew-member">
                 <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/4303601/e2b4da28-398a-48b8-91af-b42174e7cdc5/280x420" alt="Ханс Циммер">
                 <div class="crew-member-name">Ханс Циммер</div>
                 <div class="crew-member-role">Композитор</div>
             </a>
-            <a href="https://www.kinopoisk.ru/name/50590/" target="_blank" class="crew-member">
+            <a href="https://www.kinopoisk.ru/name/1642584/" target="_blank" class="crew-member">
                 <img src="https://avatars.mds.yandex.net/get-kinopoisk-image/1600647/8d98540c-ba9d-4260-81db-9c0568d30d51/280x420" alt="Натан Кроули">
                 <div class="crew-member-name">Натан Кроули</div>
                 <div class="crew-member-role">Художник-постановщик</div>
@@ -1493,8 +1566,23 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
+                // Закрываем мобильное меню после клика
+                if (window.innerWidth <= 768) {
+                    document.getElementById('nav-menu-mobile').classList.remove('active');
+                    document.getElementById('hamburger-menu').classList.remove('active');
+                }
             });
         });
+
+        // --- Функционал гамбургер-меню ---
+        const hamburgerMenu = document.getElementById('hamburger-menu');
+        const navMenuMobile = document.getElementById('nav-menu-mobile');
+
+        hamburgerMenu.addEventListener('click', () => {
+            hamburgerMenu.classList.toggle('active');
+            navMenuMobile.classList.toggle('active');
+        });
+
 
         // --- Функционал анимации при прокрутке ---
         const animateOnScrollElements = document.querySelectorAll('.animate-on-scroll');
