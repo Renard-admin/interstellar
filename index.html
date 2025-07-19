@@ -1194,7 +1194,7 @@
             </div>
         </div>
         <p class="timer-explanation">
-            Феномен гравитационной дилатации времени является ключевым элементом сюжета "Интерстеллара". Согласно теории относительности Эйнштейна, время течет по-разному для наблюдателей в разных гравитационных полях. Чем сильнее гравитация, тем медленнее течет время. На планете Миллер, расположенной очень близко к сверхмассивной черной дыре Гаргантюа, гравитация настолько сильна, что каждый час, проведенный на ее поверхности, соответствует примерно семи земным годам. Это означает, что для тех, кто остался на Земле, время проходит намного быстрее, чем для Купера и его команды на планете Миллер.
+            Феномен гравитационной дилатации времени является ключевым элементом сюжета "Интерстеллара". Согласно теории относительности Эйнштейна, время течет по-разному для наблюдателей в разных гравитационных полях. Чем сильнее гравитация, тем медленнее течет время. На планете Миллер, расположенной очень близко к сверхмассивному черной дыре Гаргантюа, гравитация настолько сильна, что каждый час, проведенный на ее поверхности, соответствует примерно семи земным годам. Это означает, что для тех, кто остался на Земле, время проходит намного быстрее, чем для Купера и его команды на планете Миллер.
         </p>
     </section>
 
@@ -1472,7 +1472,7 @@
 <p class="interview-card-description">Интервью с физиком-теоретиком Кипом Торном, научным консультантом фильма, о том, как научные концепции были воплощены на экране.</p>
             </div>
             <div class="interview-card">
-<iframe width="560" height="315" src="https://www.youtube.com/embed/sG5FRKUiw1M?si=c12wo8N6UpfXJiC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/sG5FRKUiw1M?si=c12wo8N6U9pfXJiC" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
                 <h3 class="interview-card-title">Создание музыки "Интерстеллара"</h3>
                 <p class="interview-card-description">Ханс Циммер рассказывает о процессе создания культового саундтрека к фильму и его влиянии на атмосферу.</p>
             </div>
@@ -1559,17 +1559,22 @@
         }
         createStars(200); // Создаем 200 звезд
 
-        // --- Функционал плавного скролла для навигации ---
-        document.querySelectorAll('nav a').forEach(anchor => {
+        // --- Функционал плавного скролла для навигации и закрытия меню ---
+        // Выбираем все элементы с классом 'nav-link', включая те, что в мобильном меню
+        document.querySelectorAll('.nav-link').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
                 e.preventDefault();
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-                // Закрываем мобильное меню после клика
-                if (window.innerWidth <= 768) {
-                    document.getElementById('nav-menu-mobile').classList.remove('active');
-                    document.getElementById('hamburger-menu').classList.remove('active');
+
+                // Закрываем мобильное меню после клика, если оно активно
+                const navMenuMobile = document.getElementById('nav-menu-mobile');
+                const hamburgerMenu = document.getElementById('hamburger-menu');
+
+                if (navMenuMobile.classList.contains('active')) {
+                    navMenuMobile.classList.remove('active');
+                    hamburgerMenu.classList.remove('active');
                 }
             });
         });
@@ -1605,72 +1610,72 @@
             observer.observe(el);
         });
 
-// --- Функционал таймера времени ---
-const filmReleaseDate = new Date('2014-11-07T00:00:00Z'); // Официальная дата выхода фильма
-const earthTimeDisplay = document.getElementById('earth-time');
-const millerTimeDisplay = document.getElementById('miller-time');
+        // --- Функционал таймера времени ---
+        const filmReleaseDate = new Date('2014-11-07T00:00:00Z'); // Официальная дата выхода фильма
+        const earthTimeDisplay = document.getElementById('earth-time');
+        const millerTimeDisplay = document.getElementById('miller-time');
 
-/**
- * @function formatTime
- * @description Форматирует миллисекунды в читаемый формат (годы, месяцы, недели, дни, часы, минуты, секунды, миллисекунды).
- * @param {number} milliseconds - Количество миллисекунд.
- * @returns {string} Отформатированная строка времени.
- */
-function formatTime(milliseconds) {
-    const ms = Math.floor(milliseconds % 1000); // Миллисекунды
-    let totalSeconds = Math.floor(milliseconds / 1000); // Общее количество секунд
+        /**
+         * @function formatTime
+         * @description Форматирует миллисекунды в читаемый формат (годы, месяцы, недели, дни, часы, минуты, секунды, миллисекунды).
+         * @param {number} milliseconds - Количество миллисекунд.
+         * @returns {string} Отформатированная строка времени.
+         */
+        function formatTime(milliseconds) {
+            const ms = Math.floor(milliseconds % 1000); // Миллисекунды
+            let totalSeconds = Math.floor(milliseconds / 1000); // Общее количество секунд
 
-    const years = Math.floor(totalSeconds / (365.25 * 24 * 60 * 60));
-    totalSeconds %= (365.25 * 24 * 60 * 60); // Оставшиеся секунды после вычета лет
+            const years = Math.floor(totalSeconds / (365.25 * 24 * 60 * 60));
+            totalSeconds %= (365.25 * 24 * 60 * 60); // Оставшиеся секунды после вычета лет
 
-    const months = Math.floor(totalSeconds / (30.44 * 24 * 60 * 60)); // Приблизительно месяцы
-    totalSeconds %= (30.44 * 24 * 60 * 60); // Оставшиеся секунды после вычета месяцев
+            const months = Math.floor(totalSeconds / (30.44 * 24 * 60 * 60)); // Приблизительно месяцы
+            totalSeconds %= (30.44 * 24 * 60 * 60); // Оставшиеся секунды после вычета месяцев
 
-    const totalDaysRemaining = Math.floor(totalSeconds / (24 * 60 * 60)); // Общее количество оставшихся дней
-    const weeks = Math.floor(totalDaysRemaining / 7); // Недели
-    const days = totalDaysRemaining % 7; // Оставшиеся дни после вычета недель
+            const totalDaysRemaining = Math.floor(totalSeconds / (24 * 60 * 60)); // Общее количество оставшихся дней
+            const weeks = Math.floor(totalDaysRemaining / 7); // Недели
+            const days = totalDaysRemaining % 7; // Оставшиеся дни после вычета недель
 
-    totalSeconds %= (24 * 60 * 60); // Оставшиеся секунды после вычета дней (для часов, минут, секунд)
+            totalSeconds %= (24 * 60 * 60); // Оставшиеся секунды после вычета дней (для часов, минут, секунд)
 
-    const hours = Math.floor(totalSeconds / (60 * 60));
-    totalSeconds %= (60 * 60);
+            const hours = Math.floor(totalSeconds / (60 * 60));
+            totalSeconds %= (60 * 60);
 
-    const minutes = Math.floor(totalSeconds / 60);
-    const seconds = Math.floor(totalSeconds % 60); // Секунды (явно округляем до целого числа)
+            const minutes = Math.floor(totalSeconds / 60);
+            const seconds = Math.floor(totalSeconds % 60); // Секунды (явно округляем до целого числа)
 
-    // Изменено: добавлен вывод недель и миллисекунд
-    return `${years} лет, ${months} мес, ${weeks} нед, ${days} дн, ${String(hours).padStart(2, '0')} ч, ${String(minutes).padStart(2, '0')} мин, ${String(seconds).padStart(2, '0')} сек, ${String(ms).padStart(3, '0')} мс`;
-}
+            // Изменено: добавлен вывод недель и миллисекунд
+            return `${years} лет, ${months} мес, ${weeks} нед, ${days} дн, ${String(hours).padStart(2, '0')} ч, ${String(minutes).padStart(2, '0')} мин, ${String(seconds).padStart(2, '0')} сек, ${String(ms).padStart(3, '0')} мс`;
+        }
 
-/**
- * @function updateTimers
- * @description Обновляет отображение земного времени и времени на планете Миллер.
- */
-function updateTimers() {
-    const now = new Date();
-    const earthTimeElapsedMs = now.getTime() - filmReleaseDate.getTime();
+        /**
+         * @function updateTimers
+         * @description Обновляет отображение земного времени и времени на планете Миллер.
+         */
+        function updateTimers() {
+            const now = new Date();
+            const earthTimeElapsedMs = now.getTime() - filmReleaseDate.getTime();
 
-    earthTimeDisplay.textContent = formatTime(earthTimeElapsedMs);
+            earthTimeDisplay.textContent = formatTime(earthTimeElapsedMs);
 
-    // Согласно фильму: 1 час на планете Миллер = 7 земных лет.
-    // Это означает, что время на планете Миллер течет ЗНАЧИТЕЛЬНО медленнее земного.
-    // Коэффициент замедления: 7 лет * 365.25 дней/год * 24 часа/день = количество земных часов за 1 час на Миллере.
-    const EARTH_HOURS_PER_MILLER_HOUR = 7 * 365.25 * 24; // Земных часов за 1 час на Миллере
+            // Согласно фильму: 1 час на планете Миллер = 7 земных лет.
+            // Это означает, что время на планете Миллер течет ЗНАЧИТЕЛЬНО медленнее земного.
+            // Коэффициент замедления: 7 лет * 365.25 дней/год * 24 часа/день = количество земных часов за 1 час на Миллере.
+            const EARTH_HOURS_PER_MILLER_HOUR = 7 * 365.25 * 24; // Земных часов за 1 час на Миллере
 
-    // Время, прошедшее на Земле в часах
-    const earthTimeElapsedHours = earthTimeElapsedMs / (1000 * 60 * 60);
+            // Время, прошедшее на Земле в часах
+            const earthTimeElapsedHours = earthTimeElapsedMs / (1000 * 60 * 60);
 
-    // Время, прошедшее на Миллере в часах (земные часы / коэффициент замедления)
-    const millerTimeElapsedHours = earthTimeElapsedHours / EARTH_HOURS_PER_MILLER_HOUR;
+            // Время, прошедшее на Миллере в часах (земные часы / коэффициент замедления)
+            const millerTimeElapsedHours = earthTimeElapsedHours / EARTH_HOURS_PER_MILLER_HOUR;
 
-    // Конвертируем время на Миллере обратно в миллисекунды для форматирования.
-    const millerTimeElapsedMs = millerTimeElapsedHours * (1000 * 60 * 60);
-    millerTimeDisplay.textContent = formatTime(millerTimeElapsedMs);
-}
+            // Конвертируем время на Миллере обратно в миллисекунды для форматирования.
+            const millerTimeElapsedMs = millerTimeElapsedHours * (1000 * 60 * 60);
+            millerTimeDisplay.textContent = formatTime(millerTimeElapsedMs);
+        }
 
-// Обновляем таймеры каждую миллисекунду для точности
-setInterval(updateTimers, 1);
-updateTimers(); // Первоначальное обновление при загрузке
+        // Обновляем таймеры каждую миллисекунду для точности
+        setInterval(updateTimers, 1);
+        updateTimers(); // Первоначальное обновление при загрузке
 
 
         // --- Функционал аккордеона для секции "Секреты, Факты и Цитаты" ---
